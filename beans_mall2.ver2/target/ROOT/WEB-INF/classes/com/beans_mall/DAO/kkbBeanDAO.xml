@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beans_mall.DAO.kkbBeanDAO">
+
+	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+
+		<trim prefix="where (" suffix=")" prefixOverrides="AND">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="AND">
+					<choose>
+						<when test="type == 'A'.toString()">
+							<trim prefixOverrides="or">
+								<foreach collection="authorArr" item="authorId">
+									<trim prefix="or">
+										a.authorId = #{authorId}
+									</trim>
+								</foreach>
+							</trim>
+						</when>
+						<when test="type == 'C'.toString()">
+							a.cateCode like conCat ('%', #{cateCode}, '%')
+						</when>
+						<when test="type == 'T'.toString()">
+							beanName like conCat ('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+
+	</sql>
+
+	<!-- 상품 검색 -->
+	<select id="getGoodsList" resultType="com.beans_mall.VO.BeanVO">
+
+		SELECT beanId, beanName, b.authorName, a.authorId, c.cateName,
+		a.cateCode, publisher, publeYear, beanPrice, beanDiscount
+		FROM
+		beans_mall_bean a
+		LEFT OUTER JOIN beans_mall_author b ON a.authorId =
+		b.authorId
+		LEFT OUTER JOIN beans_mall_cate c ON a.cateCode = c.cateCode
+		<include refid="criteria"></include>
+		ORDER BY beanId DESC
+		LIMIT #{skip}, #{amount}
+
+	</select>
+
+	<!-- 상품 총 개수 -->
+	<select id="goodsGetTotal" resultType="int">
+
+		SELECT COUNT(*) FROM beans_mall_bean a
+		<include refid="criteria"></include>
+
+	</select>
+
+	<!-- 판매자 id 리스트 요청 -->
+	<select id="getAuthorIdList" resultType="String">
+
+		SELECT authorId FROM beans_mall_author WHERE authorName LIKE CONCAT ('%',
+		#{keyword}, '%')
+
+	</select>
+
+	<!-- 국내 카테고리 리스트 -->
+	<select id="getCateCode1" resultType="com.beans_mall.VO.CateVO">
+	
+		<![CDATA[
+		SELECT * FROM beans_mall_cate WHERE cateCode > 100000 AND cateCode < 200000
+		]]>
+	</select>
+
+	<!-- 외국 카테고리 리스트 -->
+	<select id="getCateCode2" resultType="com.beans_mall.VO.CateVO">
+	
+		<![CDATA[
+		SELECT * FROM beans_mall_cate WHERE cateCode > 200000 AND cateCode < 300000
+		]]>
+
+	</select>
+
+	<!-- 검색 대상 카테고리 리스트 -->
+	<select id="getCateList" resultType="String">
+
+		SELECT DISTINCT cateCode FROM beans_mall_bean WHERE
+		<foreach item="type" collection="typeArr">
+			<choose>
+				<when test="type == 'A'.toString()">
+					<trim prefixOverrides="or">
+						<foreach collection="authorArr" item="authorId">
+							<trim prefix="or">
+								authorId = #{authorId}
+							</trim>
+						</foreach>
+					</trim>
+				</when>
+				<when test="type == 'T'.toString()">
+					beanName LIKE CONCAT ('%', #{keyword}, '%')
+				</when>
+			</choose>
+		</foreach>
+
+	</select>
+
+
+	<!-- 카테고리 정보(+검색대상 갯수) -->
+	<select id="getCateInfo"
+		resultType="com.beans_mall.VO.CateFilterDTO">
+
+		SELECT DISTINCT COUNT(*) AS cateCount, a.cateCode, b.cateName FROM
+		beans_mall_bean a LEFT JOIN beans_mall_cate b ON a.cateCode =
+		b.cateCode
+
+		WHERE
+
+		<foreach item="type" collection="typeArr">
+			<choose>
+				<when test="type == 'A'.toString()">
+
+					<trim prefix="(" suffix=")" prefixOverrides="or">
+
+						<foreach collection="authorArr" item="authorId">
+							<trim prefix="or">
+								authorId = #{authorId}
+							</trim>
+						</foreach>
+
+					</trim>
+
+					AND a.cateCode = #{cateCode}
+
+				</when>
+
+				<when test="type == 'T'.toString()">
+
+					beanName LIKE CONCAT ('%', #{keyword}, '%') AND a.cateCode = #{cateCode}
+
+				</when>
+
+			</choose>
+		</foreach>
+
+	</select>
+
+	<!-- 상품 정보 -->
+	<select id="getGoodsInfo" resultType="com.beans_mall.VO.BeanVO">
+
+		SELECT a.BEANID, a.BEANNAME, a.AUTHORID, b.AUTHORNAME, a.PUBLEYEAR,
+		a.PUBLISHER, a.CATECODE, c.CATENAME, a.BEANPRICE, a.BEANSTOCK,
+		a.BEANDISCOUNT, a.BEANINTRO, a.BEANCONTENTS
+		FROM beans_mall_bean a LEFT
+		OUTER JOIN beans_mall_author b ON a.authorId = b.authorId
+		LEFT OUTER
+		JOIN beans_mall_cate c ON a.catecode = c.catecode
+		WHERE beanId =
+		${beanId}
+
+	</select>
+
+	<select id="getBeanIdName" resultType="com.beans_mall.VO.BeanVO">
+
+		SELECT beanId, beanName FROM beans_mall_bean
+		WHERE beanId = #{beanId}
+
+	</select>
+
+	<select id="likeSelect" resultType="com.beans_mall.VO.SelectDTO">
+
+		SELECT beanId, beanName, ratingAvg, (SELECT cateName FROM beans_mall_cate
+		WHERE beans_mall_bean.cateCode = beans_mall_cate.cateCode) AS cateName
+		FROM beans_mall_bean
+		ORDER BY ratingAvg DESC LIMIT 100
+
+	</select>
+
+
+</mapper>

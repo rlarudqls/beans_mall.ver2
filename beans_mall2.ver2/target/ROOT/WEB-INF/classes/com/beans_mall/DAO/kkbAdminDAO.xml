@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beans_mall.DAO.kkbAdminDAO">
+	<!-- 상품 등록 -->
+	<insert id="beanEnroll">
+		<selectKey resultType="int" keyProperty="beanId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO beans_mall_bean(beanName, authorId, publeYear, publisher,
+		cateCode, beanPrice, beanStock, beanDiscount, beanIntro, beanContents)
+		VALUES (#{beanName}, #{authorId}, #{publeYear}, #{publisher},
+		#{cateCode}, #{beanPrice}, #{beanStock}, #{beanDiscount},
+		#{beanIntro}, #{beanContents})
+	</insert>
+
+
+
+
+	<!-- 카테고리 리스트 -->
+	<select id="cateList" resultType="com.beans_mall.VO.CateVO">
+		SELECT * FROM beans_mall_cate ORDER BY cateCode
+	</select>
+
+	<!-- 상품 리스트 -->
+	<select id="beanGetList" resultType="com.beans_mall.VO.BeanVO">
+		SELECT beanId, beanName, b.authorName, c.cateName, beanStock,
+		a.regDate
+		FROM beans_mall_bean a
+		LEFT OUTER JOIN beans_mall_author b ON a.authorId = b.authorId
+		LEFT OUTER JOIN beans_mall_cate c ON a.cateCode = c.cateCode
+		<if test="keyword != null and keyword != ''">
+			WHERE (beanName LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
+		ORDER BY beanId DESC
+		LIMIT #{skip}, #{amount}
+	</select>
+
+	<!-- 상품 총 개수 -->
+	<select id="beanGetTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM beans_mall_bean
+		<if test="keyword != null and keyword != ''">
+			WHERE beanName LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</select>
+
+	<!-- 상품 조회 페이지 -->
+	<select id="beanGetDetail" resultType="com.beans_mall.VO.BeanVO">
+		SELECT beanId, beanName, (SELECT authorName FROM beans_mall_author WHERE
+		authorId = beans_mall_bean.authorId) AS authorName,
+		authorId, publeYear, publisher, cateCode, beanPrice, beanStock, beanDiscount,
+		beanIntro, beanContents, regDate, updateDate
+		FROM beans_mall_bean
+		WHERE beanId = #{beanId}
+	</select>
+
+	<!-- 상품 정보 수정 -->
+	<update id="beanModify">
+		UPDATE beans_mall_bean
+		SET beanName = #{beanName}, authorId = #{authorId}, publeYear =
+		#{publeYear}, publisher = #{publisher}, cateCode = #{cateCode},
+		beanPrice = #{beanPrice}, beanStock = #{beanStock}, beanDiscount =
+		#{beanDiscount}, beanIntro = #{beanIntro}, beanContents =
+		#{beanContents}, updateDate = NOW()
+		WHERE beanId = #{beanId}
+	</update>
+
+	<!-- 상품 정보 삭제 -->
+	<delete id="beanDelete">
+		DELETE FROM beans_mall_bean
+		WHERE beanId = #{beanId}
+	</delete>
+
+	<!-- 이미지 등록 -->
+	<insert id="imageEnroll">
+		INSERT INTO beans_mall_image(beanId, fileName, uploadPath, uuId)
+		VALUES (#{beanId}, #{fileName}, #{uploadPath}, #{uuId})
+	</insert>
+
+	<!-- 지정 상품 이미지 전체 삭제 -->
+	<delete id="deleteImageAll">
+		DELETE FROM beans_mall_image
+		WHERE beanId = #{beanId}
+	</delete>
+
+	<!-- 어제자 날짜 이미지 리스트 -->
+	<select id="checkFileList"
+		resultType="com.beans_mall.VO.AttachImageVO">
+		SELECT *
+		FROM beans_mall_image
+		WHERE uploadPath = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY),
+		'%Y\\%m\\%d')
+	</select>
+
+	<!-- 지정 상품 이미지 정보 얻기 -->
+	<select id="getAttachInfo"
+		resultType="com.beans_mall.VO.AttachImageVO">
+		SELECT *
+		FROM beans_mall_image
+		WHERE beanId = #{beanId}
+	</select>
+
+	<!-- 주문 리스트 -->
+	<select id="getOrderList"
+		resultType="com.beans_mall.VO.OrderDTO">
+		SELECT orderId, memberId, orderState, orderDate
+		FROM beans_mall_order
+		<if test="keyword != null and keyword != ''">
+			WHERE memberId LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY orderDate DESC
+		LIMIT #{skip}, #{amount}
+	</select>
+
+	<!-- 주문 총 갯수 -->
+	<select id="getOrderTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM beans_mall_order
+		<if test="keyword != null and keyword != ''">
+			WHERE memberId LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</select>
+</mapper>
