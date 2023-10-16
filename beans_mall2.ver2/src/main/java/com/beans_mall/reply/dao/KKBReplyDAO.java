@@ -1,38 +1,64 @@
 package com.beans_mall.reply.dao;
 
-import java.util.List;
-
 import com.beans_mall.bean.model.CriteriaVO;
 import com.beans_mall.reply.model.ReplyDTO;
 import com.beans_mall.reply.model.UpdateReplyDTO;
 
+import java.util.List;
+
 public interface KKBReplyDAO {
 
-	/* 댓글 등록 */
-	public int enrollReply(ReplyDTO dto);
+    EnrollReplyBuilder enrollReply(ReplyDTO dto);
 
-	/* 댓글 존재 체크 */
-	public Integer checkReply(ReplyDTO dto);
+    CheckReplyBuilder checkReply(ReplyDTO dto);
 
-	/* 댓글 페이징 */
-	public List<ReplyDTO> getReplyList(CriteriaVO cri);
+    GetReplyListBuilder getReplyList(CriteriaVO cri);
 
-	/* 댓글 총 갯수(페이징) */
-	public int getReplyTotal(int beanId);
+    GetReplyTotalBuilder getReplyTotal(int beanId);
 
-	/* 댓글 수정 */
-	public int updateReply(ReplyDTO dto);
+    UpdateReplyBuilder updateReply(ReplyDTO dto);
 
-	/* 댓글 한개 정보(수정페이지) */
-	public ReplyDTO getUpdateReply(int replyId);
+    GetUpdateReplyBuilder getUpdateReply(int replyId);
 
-	/* 댓글 삭제 */
-	public int deleteReply(int replyId);
+    DeleteReplyBuilder deleteReply(int replyId);
 
-	/* 평점 평균 구하기 */
-	public Double getRatingAverage(int beanId);
+    GetRatingAverageBuilder getRatingAverage(int beanId);
 
-	/* 평점 평균 반영하기 */
-	public int updateRating(UpdateReplyDTO dto);
+    UpdateRatingBuilder updateRating(UpdateReplyDTO dto);
 
+    interface EnrollReplyBuilder {
+        int buildEnrollReply();
+    }
+
+    interface CheckReplyBuilder {
+        Integer buildCheckReply();
+    }
+
+    interface GetReplyListBuilder {
+        List<ReplyDTO> buildGetReplyList();
+    }
+
+    interface GetReplyTotalBuilder {
+        int buildGetReplyTotal();
+    }
+
+    interface UpdateReplyBuilder {
+        int buildUpdateReply();
+    }
+
+    interface GetUpdateReplyBuilder {
+        ReplyDTO buildGetUpdateReply();
+    }
+
+    interface DeleteReplyBuilder {
+        int buildDeleteReply();
+    }
+
+    interface GetRatingAverageBuilder {
+        Double buildGetRatingAverage();
+    }
+
+    interface UpdateRatingBuilder {
+        int buildUpdateRating();
+    }
 }

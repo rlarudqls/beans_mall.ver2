@@ -10,34 +10,43 @@ import com.beans_mall.bean.model.SelectDTO;
 
 public interface KKBBeanDAO {
 
-	/* 상품 검색 */
-	public List<BeanVO> getGoodsList(CriteriaVO cri);
+    KKBBeanDAO getGoodsList(CriteriaVO cri);
 
-	/* 상품 총 갯수 */
-	public int goodsGetTotal(CriteriaVO cri);
+    List<BeanVO> build();
 
-	/* 판매자 id 리스트 요청 */
-	public String[] getAuthorIdList(String keyword);
+    KKBBeanDAO goodsGetTotal(CriteriaVO cri);
 
-	/* 국내 카테고리 리스트 */
-	public List<CateVO> getCateCode1();
+    int buildGoodsTotal();
 
-	/* 외국 카테고리 리스트 */
-	public List<CateVO> getCateCode2();
+    KKBBeanDAO getAuthorIdList(String keyword);
 
-	/* 검색 대상 카테고리 리스트 */
-	public String[] getCateList(CriteriaVO cri);
+    String[] buildAuthorIdList();
 
-	/* 카테고리 정보(+검색대상 갯수) */
-	public CateFilterDTO getCateInfo(CriteriaVO cri);
+    KKBBeanDAO getCateCode1();
 
-	/* 상품 정보 */
-	public BeanVO getGoodsInfo(int beanId);
+    List<CateVO> buildCateCode1();
 
-	/* 상품 id 이름 */
-	public BeanVO getBeanIdName(int beanId);
+    KKBBeanDAO getCateCode2();
 
-	/* 평줌순 상품 정보 */
-	public List<SelectDTO> likeSelect();
+    List<CateVO> buildCateCode2();
 
+    KKBBeanDAO getCateList(CriteriaVO cri);
+
+    String[] buildCateList();
+
+    KKBBeanDAO getCateInfo(CriteriaVO cri);
+
+    CateFilterDTO buildCateInfo();
+
+    KKBBeanDAO getGoodsInfo(int beanId);
+
+    BeanVO buildGoodsInfo();
+
+    KKBBeanDAO getBeanIdName(int beanId);
+
+    BeanVO buildBeanIdName();
+
+    KKBBeanDAO likeSelect();
+
+    List<SelectDTO> buildLikeSelect();
 }
