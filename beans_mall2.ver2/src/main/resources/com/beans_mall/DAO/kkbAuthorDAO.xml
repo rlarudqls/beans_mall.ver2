@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beans_mall.dao.kkbAuthorDAO">
+<mapper namespace="com.beans_mall.admin.dao.kkbAuthorDAO">
 
 	<!-- 판매자 등록 -->
 	<insert id="authorEnroll"
-		parameterType="com.beans_mall.vo.AuthorVO">
+		parameterType="com.beans_mall.admin.model.AuthorVO">
 		insert into beans_mall_author(authorId, authorName, nationId, authorIntro)
 		values(#{authorId}, #{authorName}, #{nationId}, #{authorIntro})
 	</insert>
 
 	<!-- 판매자 목록 -->
 	<select id="authorGetList"
-		resultType="com.beans_mall.vo.AuthorVO">
+		resultType="com.beans_mall.admin.model.AuthorVO">
 		select authorId, authorName, nationId, regDate, updateDate
 		from beans_mall_author
 		<if test="keyword != null">
@@ -33,7 +33,7 @@
 
 	<!-- 판매자 디테일 페이지 -->
 	<select id="authorGetDetail"
-		resultType="com.beans_mall.vo.AuthorVO">
+		resultType="com.beans_mall.admin.model.AuthorVO">
 		select * from beans_mall_author where authorId = #{authorId}
 	</select>
 

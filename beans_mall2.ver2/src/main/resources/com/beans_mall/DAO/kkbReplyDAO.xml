@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beans_mall.dao.kkbReplyDAO">
+<mapper namespace="com.beans_mall.reply.dao.kkbReplyDAO">
 
 	<!-- 댓글등록 -->
 	<insert id="enrollReply">
@@ -24,7 +24,7 @@
 
 	<!-- 댓글 페이징 -->
 	<select id="getReplyList"
-		resultType="com.beans_mall.dto.ReplyDTO">
+		resultType="com.beans_mall.reply.model.ReplyDTO">
 		select replyId, beanId, memberId, content, rating, regDate
 		from beans_mall_reply
 		where beanId = #{beanId}
@@ -47,7 +47,7 @@
 
 	<!-- 댓글 수정 팝업창 -->
 	<select id="getUpdateReply"
-		resultType="com.beans_mall.dto.ReplyDTO">
+		resultType="com.beans_mall.reply.model.ReplyDTO">
 		select * from beans_mall_reply
 		where replyId = #{replyId}
 	</select>

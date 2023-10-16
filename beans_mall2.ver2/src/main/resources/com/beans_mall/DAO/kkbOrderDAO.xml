@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beans_mall.dao.kkbOrderDAO">
+<mapper namespace="com.beans_mall.order.dao.kkbOrderDAO">
 
 	<!-- 주문 상품 정보 -->
 	<select id="getGoodsInfo"
-		resultType="com.beans_mall.dto.OrderPageItemDTO">
+		resultType="com.beans_mall.order.model.OrderPageItemDTO">
 		SELECT beanId, beanName, beanPrice, beanDiscount
 		FROM
 		beans_mall_bean
@@ -15,7 +15,7 @@
 
 	<!-- 주문 상품 정보(주문 처리) -->
 	<select id="getOrderInfo"
-		resultType="com.beans_mall.dto.OrderItemDTO">
+		resultType="com.beans_mall.order.model.OrderItemDTO">
 		SELECT beanId, beanPrice, beanDiscount
 		FROM beans_mall_bean
 		WHERE beanId = #{beanId}
@@ -64,14 +64,14 @@
 
 	<!-- 주문 상품 정보(주문취소) -->
 	<select id="getOrderItemInfo"
-		resultType="com.beans_mall.dto.OrderItemDTO">
+		resultType="com.beans_mall.order.model.OrderItemDTO">
 		SELECT *
 		FROM beans_mall_orderItem
 		WHERE orderId = #{orderId}
 	</select>
 
 	<!-- 주문 정보(주문 취소) -->
-	<select id="getOrder" resultType="com.beans_mall.dto.OrderDTO">
+	<select id="getOrder" resultType="com.beans_mall.order.model.OrderDTO">
 		SELECT *
 		FROM beans_mall_order
 		WHERE orderId = #{orderId}

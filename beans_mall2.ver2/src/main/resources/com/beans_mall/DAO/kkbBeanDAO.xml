@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beans_mall.dao.kkbBeanDAO">
+<mapper namespace="com.beans_mall.bean.dao.kkbBeanDAO">
 
 	<!-- criteria(검색조건) -->
 	<sql id="criteria">
@@ -34,7 +34,7 @@
 	</sql>
 
 	<!-- 상품 검색 -->
-	<select id="getGoodsList" resultType="com.beans_mall.vo.BeanVO">
+	<select id="getGoodsList" resultType="com.beans_mall.bean.model.BeanVO">
 
 		SELECT beanId, beanName, b.authorName, a.authorId, c.cateName,
 		a.cateCode, publisher, publeYear, beanPrice, beanDiscount
@@ -66,7 +66,7 @@
 	</select>
 
 	<!-- 국내 카테고리 리스트 -->
-	<select id="getCateCode1" resultType="com.beans_mall.vo.CateVO">
+	<select id="getCateCode1" resultType="com.beans_mall.bean.model.CateVO">
 	
 		<![CDATA[
 		SELECT * FROM beans_mall_cate WHERE cateCode > 100000 AND cateCode < 200000
@@ -74,7 +74,7 @@
 	</select>
 
 	<!-- 외국 카테고리 리스트 -->
-	<select id="getCateCode2" resultType="com.beans_mall.vo.CateVO">
+	<select id="getCateCode2" resultType="com.beans_mall.bean.model.CateVO">
 	
 		<![CDATA[
 		SELECT * FROM beans_mall_cate WHERE cateCode > 200000 AND cateCode < 300000
@@ -108,7 +108,7 @@
 
 	<!-- 카테고리 정보(+검색대상 갯수) -->
 	<select id="getCateInfo"
-		resultType="com.beans_mall.dto.CateFilterDTO">
+		resultType="com.beans_mall.bean.model.CateFilterDTO">
 
 		SELECT DISTINCT COUNT(*) AS cateCount, a.cateCode, b.cateName FROM
 		beans_mall_bean a LEFT JOIN beans_mall_cate b ON a.cateCode =
@@ -146,7 +146,7 @@
 	</select>
 
 	<!-- 상품 정보 -->
-	<select id="getGoodsInfo" resultType="com.beans_mall.vo.BeanVO">
+	<select id="getGoodsInfo" resultType="com.beans_mall.bean.model.BeanVO">
 
 		SELECT a.BEANID, a.BEANNAME, a.AUTHORID, b.AUTHORNAME, a.PUBLEYEAR,
 		a.PUBLISHER, a.CATECODE, c.CATENAME, a.BEANPRICE, a.BEANSTOCK,
@@ -160,14 +160,14 @@
 
 	</select>
 
-	<select id="getBeanIdName" resultType="com.beans_mall.vo.BeanVO">
+	<select id="getBeanIdName" resultType="com.beans_mall.bean.model.BeanVO">
 
 		SELECT beanId, beanName FROM beans_mall_bean
 		WHERE beanId = #{beanId}
 
 	</select>
 
-	<select id="likeSelect" resultType="com.beans_mall.dto.SelectDTO">
+	<select id="likeSelect" resultType="com.beans_mall.bean.model.SelectDTO">
 
 		SELECT beanId, beanName, ratingAvg, (SELECT cateName FROM beans_mall_cate
 		WHERE beans_mall_bean.cateCode = beans_mall_cate.cateCode) AS cateName

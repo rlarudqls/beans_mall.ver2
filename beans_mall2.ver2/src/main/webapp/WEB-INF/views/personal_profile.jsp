@@ -1,4 +1,4 @@
-<%@ page import="com.beans_mall.vo.MemberVO"%><%@ page language="java"
+<%@ page import="com.beans_mall.member.model.MemberVO"%><%@ page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>

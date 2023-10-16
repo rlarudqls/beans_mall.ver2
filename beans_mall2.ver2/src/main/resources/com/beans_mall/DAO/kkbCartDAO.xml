@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beans_mall.dao.kkbCartDAO">
+<mapper namespace="com.beans_mall.cart.dao.kkbCartDAO">
 
 	<!-- 카트 추가 -->
 	<insert id="addCart">
@@ -30,7 +30,7 @@
 
 
 	<!-- 카트 목록 -->
-	<select id="getCart" resultType="com.beans_mall.dto.CartDTO">
+	<select id="getCart" resultType="com.beans_mall.cart.model.CartDTO">
 
 		select a.cartId, a.memberId, a.beanId, a.beanCount, b.beanName, b.beanPrice,
 		b.beanDiscount
@@ -41,7 +41,7 @@
 	</select>
 
 	<!-- 카트 확인 -->
-	<select id="checkCart" resultType="com.beans_mall.dto.CartDTO">
+	<select id="checkCart" resultType="com.beans_mall.cart.model.CartDTO">
 
 		select * from beans_mall_cart
 		where memberId = #{memberId} and beanId = #{beanId}
