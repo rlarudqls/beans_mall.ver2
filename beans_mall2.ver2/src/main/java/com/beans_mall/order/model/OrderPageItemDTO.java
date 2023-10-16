@@ -1,34 +1,39 @@
+//initSaleTotal() 메서드 호출을 생성자에서 수행하게 만들었습니다.
 package com.beans_mall.order.model;
 
 import java.util.List;
-
 import com.beans_mall.attach.model.AttachImageVO;
 
 public class OrderPageItemDTO {
 
-    /* 뷰로부터 전달받을 값 */
     private int beanId;
-    
     private int beanCount;
-    
-    /* DB로부터 꺼내올 값 */
     private String beanName;
-    
     private int beanPrice;
-    
     private double beanDiscount;
-    
-    /* 만들어 낼 값 */
     private int salePrice;
-    
     private int totalPrice;
-    
     private int point;
-    
     private int totalPoint;
-    
-    /* 상품 이미지 */
-    private List<AttachImageVO> imageList;         
+    private List<AttachImageVO> imageList;
+
+    public OrderPageItemDTO(int beanId, int beanCount, String beanName, int beanPrice, double beanDiscount,
+            List<AttachImageVO> imageList) {
+        this.beanId = beanId;
+        this.beanCount = beanCount;
+        this.beanName = beanName;
+        this.beanPrice = beanPrice;
+        this.beanDiscount = beanDiscount;
+        this.imageList = imageList;
+        initSaleTotal();
+    }
+
+    private void initSaleTotal() {
+        this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
+        this.totalPrice = this.salePrice * this.beanCount;
+        this.point = (int) (Math.floor(this.salePrice * 0.05));
+        this.totalPoint = this.point * this.beanCount;
+    }
 
     public int getBeanId() {
         return beanId;
@@ -74,39 +79,16 @@ public class OrderPageItemDTO {
         return salePrice;
     }
 
-    public void setSalePrice(int salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public int getTotalPrice() {
         return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public int getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
     public int getTotalPoint() {
         return totalPoint;
-    }
-
-    public void setTotalPoint(int totalPoint) {
-        this.totalPoint = totalPoint;
-    }    
-
-    public void initSaleTotal() {
-        this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
-        this.totalPrice = this.salePrice * this.beanCount;
-        this.point = (int) (Math.floor(this.salePrice * 0.05));
-        this.totalPoint = this.point * this.beanCount;
     }
 
     public List<AttachImageVO> getImageList() {
@@ -123,5 +105,5 @@ public class OrderPageItemDTO {
                 + ", beanPrice=" + beanPrice + ", beanDiscount=" + beanDiscount + ", salePrice=" + salePrice
                 + ", totalPrice=" + totalPrice + ", point=" + point + ", totalPoint=" + totalPoint + ", imageList="
                 + imageList + "]";
-    }    
+    }
 }

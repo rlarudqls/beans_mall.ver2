@@ -1,190 +1,211 @@
 package com.beans_mall.order.model;
 
-
 import java.util.Date;
 import java.util.List;
 
 public class OrderDTO {
 
-	/* 주문 번호 */
-	private String orderId;
-	
-	/* 배송 받는이 */
-	private String addressee;
-	
-	/* 주문 회원 아이디 */
-	private String memberId;
-	
-	/* 우편번호 */
-	private String memberAddr1;
-	
-	/* 회원 주소 */
-	private String memberAddr2;
-	
-	/* 회원 상세주소 */
-	private String memberAddr3;
-	
-	/* 주문 상태 */
-	private String orderState;
-	
-	/* 주문 상품 */
-	private List<OrderItemDTO> orders;	
-	
-	/* 배송비 */
-	private int deliveryCost;
-	
-	/* 사용 포인트 */
-	private int usePoint;
-	
-	/* 주문 날짜 */
-	private Date orderDate;
-	
-	/* DB테이블 존재 하지 않는 데이터 */
-	
-	/* 판매가(모든 상품 비용) */
-	private int orderSalePrice;
-	
-	/* 적립 포인트 */
-	private int orderSavePoint;
-	
-	/* 최종 판매 비용 */
-	private int orderFinalSalePrice;
+    private final String orderId;
+    private String addressee;
+    private final String memberId;
+    private String memberAddr1;
+    private String memberAddr2;
+    private String memberAddr3;
+    private String orderState;
+    private List<OrderItemDTO> orders;
+    private int deliveryCost;
+    private int usePoint;
+    private Date orderDate;
 
-	public String getOrderId() {
-		return orderId;
-	}
+    private OrderDTO(Builder builder) {
+        this.orderId = builder.orderId;
+        this.addressee = builder.addressee;
+        this.memberId = builder.memberId;
+        this.memberAddr1 = builder.memberAddr1;
+        this.memberAddr2 = builder.memberAddr2;
+        this.memberAddr3 = builder.memberAddr3;
+        this.orderState = builder.orderState;
+        this.orders = builder.orders;
+        this.deliveryCost = builder.deliveryCost;
+        this.usePoint = builder.usePoint;
+        this.orderDate = builder.orderDate;
+    }
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
+    public String getOrderId() {
+        return orderId;
+    }
 
-	public String getAddressee() {
-		return addressee;
-	}
+    public String getAddressee() {
+        return addressee;
+    }
 
-	public void setAddressee(String addressee) {
-		this.addressee = addressee;
-	}
+    public void setAddressee(String addressee) {
+        this.addressee = addressee;
+    }
 
-	public String getMemberId() {
-		return memberId;
-	}
+    public String getMemberId() {
+        return memberId;
+    }
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+    public String getMemberAddr1() {
+        return memberAddr1;
+    }
 
-	public String getMemberAddr1() {
-		return memberAddr1;
-	}
+    public void setMemberAddr1(String memberAddr1) {
+        this.memberAddr1 = memberAddr1;
+    }
 
-	public void setMemberAddr1(String memberAddr1) {
-		this.memberAddr1 = memberAddr1;
-	}
+    public String getMemberAddr2() {
+        return memberAddr2;
+    }
 
-	public String getMemberAddr2() {
-		return memberAddr2;
-	}
+    public void setMemberAddr2(String memberAddr2) {
+        this.memberAddr2 = memberAddr2;
+    }
 
-	public void setMemberAddr2(String memberAddr2) {
-		this.memberAddr2 = memberAddr2;
-	}
+    public String getMemberAddr3() {
+        return memberAddr3;
+    }
 
-	public String getMemberAddr3() {
-		return memberAddr3;
-	}
+    public void setMemberAddr3(String memberAddr3) {
+        this.memberAddr3 = memberAddr3;
+    }
 
-	public void setMemberAddr3(String memberAddr3) {
-		this.memberAddr3 = memberAddr3;
-	}
+    public String getOrderState() {
+        return orderState;
+    }
 
-	public String getOrderState() {
-		return orderState;
-	}
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
 
-	public void setOrderState(String orderState) {
-		this.orderState = orderState;
-	}
+    public List<OrderItemDTO> getOrders() {
+        return orders;
+    }
 
-	public List<OrderItemDTO> getOrders() {
-		return orders;
-	}
+    public void setOrders(List<OrderItemDTO> orders) {
+        this.orders = orders;
+    }
 
-	public void setOrders(List<OrderItemDTO> orders) {
-		this.orders = orders;
-	}
+    public int getDeliveryCost() {
+        return deliveryCost;
+    }
 
-	public int getDeliveryCost() {
-		return deliveryCost;
-	}
+    public void setDeliveryCost(int deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
 
-	public void setDeliveryCost(int deliveryCost) {
-		this.deliveryCost = deliveryCost;
-	}
+    public int getUsePoint() {
+        return usePoint;
+    }
 
-	public int getUsePoint() {
-		return usePoint;
-	}
+    public void setUsePoint(int usePoint) {
+        this.usePoint = usePoint;
+    }
 
-	public void setUsePoint(int usePoint) {
-		this.usePoint = usePoint;
-	}
+    public Date getOrderDate() {
+        return orderDate;
+    }
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+    public static Builder builder(String orderId, String memberId) {
+        return new Builder(orderId, memberId);
+    }
 
-	public int getOrderSalePrice() {
-		return orderSalePrice;
-	}
+    public static class Builder {
+        private final String orderId;
+        private String addressee = "";
+        private final String memberId;
+        private String memberAddr1 = "";
+        private String memberAddr2 = "";
+        private String memberAddr3 = "";
+        private String orderState = "";
+        private List<OrderItemDTO> orders;
+        private int deliveryCost = 0;
+        private int usePoint = 0;
+        private Date orderDate;
 
-	public void setOrderSalePrice(int orderSalePrice) {
-		this.orderSalePrice = orderSalePrice;
-	}
+        public Builder(String orderId, String memberId) {
+            this.orderId = orderId;
+            this.memberId = memberId;
+        }
 
-	public int getOrderSavePoint() {
-		return orderSavePoint;
-	}
+        public Builder addressee(String addressee) {
+            this.addressee = addressee;
+            return this;
+        }
 
-	public void setOrderSavePoint(int orderSavePoint) {
-		this.orderSavePoint = orderSavePoint;
-	}
+        public Builder memberAddr1(String memberAddr1) {
+            this.memberAddr1 = memberAddr1;
+            return this;
+        }
 
-	public int getOrderFinalSalePrice() {
-		return orderFinalSalePrice;
-	}
+        public Builder memberAddr2(String memberAddr2) {
+            this.memberAddr2 = memberAddr2;
+            return this;
+        }
 
-	public void setOrderFinalSalePrice(int orderFinalSalePrice) {
-		this.orderFinalSalePrice = orderFinalSalePrice;
-	}
+        public Builder memberAddr3(String memberAddr3) {
+            this.memberAddr3 = memberAddr3;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		return "OrderDTO [orderId=" + orderId + ", addressee=" + addressee + ", memberId=" + memberId + ", memberAddr1="
-				+ memberAddr1 + ", memberAddr2=" + memberAddr2 + ", memberAddr3=" + memberAddr3 + ", orderState="
-				+ orderState + ", orders=" + orders + ", deliveryCost=" + deliveryCost + ", usePoint=" + usePoint
-				+ ", orderDate=" + orderDate + ", orderSalePrice=" + orderSalePrice + ", orderSavePoint="
-				+ orderSavePoint + ", orderFinalSalePrice=" + orderFinalSalePrice + "]";
-	}	
-	
-	public void getOrderPriceInfo() {
-		/* 상품 비용 & 적립포인트 */
-			for(OrderItemDTO order : orders) {
-				orderSalePrice += order.getTotalPrice();
-				orderSavePoint += order.getTotalSavePoint();
-			}
-		/* 배송비용 */
-			if(orderSalePrice >= 30000) {
-				deliveryCost = 0;
-			} else {
-				deliveryCost = 3000;
-			}
-		/* 최종 비용(상품 비용 + 배송비 - 사용 포인트) */
-			orderFinalSalePrice = orderSalePrice + deliveryCost - usePoint;
-	}		
-	
+        public Builder orderState(String orderState) {
+            this.orderState = orderState;
+            return this;
+        }
+
+        public Builder orders(List<OrderItemDTO> orders) {
+            this.orders = orders;
+            return this;
+        }
+
+        public Builder deliveryCost(int deliveryCost) {
+            this.deliveryCost = deliveryCost;
+            return this;
+        }
+
+        public Builder usePoint(int usePoint) {
+            this.usePoint = usePoint;
+            return this;
+        }
+
+        public Builder orderDate(Date orderDate) {
+            this.orderDate = orderDate;
+            return this;
+        }
+
+        public OrderDTO build() {
+            return new OrderDTO(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDTO [orderId=" + orderId + ", addressee=" + addressee + ", memberId=" + memberId + ", memberAddr1="
+                + memberAddr1 + ", memberAddr2=" + memberAddr2 + ", memberAddr3=" + memberAddr3 + ", orderState="
+                + orderState + ", orders=" + orders + ", deliveryCost=" + deliveryCost + ", usePoint=" + usePoint
+                + ", orderDate=" + orderDate + "]";
+    }
+
+    public void getOrderPriceInfo() {
+        int orderSalePrice = 0;
+        int orderSavePoint = 0;
+
+        for (OrderItemDTO order : orders) {
+            orderSalePrice += order.getTotalPrice();
+            orderSavePoint += order.getTotalSavePoint();
+        }
+
+        if (orderSalePrice >= 30000) {
+            deliveryCost = 0;
+        } else {
+            deliveryCost = 3000;
+        }
+
+        int orderFinalSalePrice = orderSalePrice + deliveryCost - usePoint;
+    }
 }

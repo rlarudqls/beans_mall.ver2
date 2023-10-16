@@ -1,132 +1,169 @@
 package com.beans_mall.cart.model;
 
-import java.util.List;
-
 import com.beans_mall.attach.model.AttachImageVO;
+
+import java.util.List;
 
 public class CartDTO {
 
-	private int cartId;
+    private final int cartId;
+    private final String memberId;
+    private final int beanId;
+    private final int beanCount;
+    private final String beanName;
+    private final int beanPrice;
+    private final double beanDiscount;
+    private int salePrice;
+    private int totalPrice;
+    private int point;
+    private int totalPoint;
+    private List<AttachImageVO> imageList;
 
-	private String memberId;
+    private CartDTO(Builder builder) {
+        this.cartId = builder.cartId;
+        this.memberId = builder.memberId;
+        this.beanId = builder.beanId;
+        this.beanCount = builder.beanCount;
+        this.beanName = builder.beanName;
+        this.beanPrice = builder.beanPrice;
+        this.beanDiscount = builder.beanDiscount;
+        this.salePrice = builder.salePrice;
+        this.totalPrice = builder.totalPrice;
+        this.point = builder.point;
+        this.totalPoint = builder.totalPoint;
+        this.imageList = builder.imageList;
+    }
 
-	private int beanId;
+    public int getCartId() {
+        return cartId;
+    }
 
-	private int beanCount;
+    public String getMemberId() {
+        return memberId;
+    }
 
-	// bean
+    public int getBeanId() {
+        return beanId;
+    }
 
-	private String beanName;
+    public int getBeanCount() {
+        return beanCount;
+    }
 
-	private int beanPrice;
+    public String getBeanName() {
+        return beanName;
+    }
 
-	private double beanDiscount;
+    public int getBeanPrice() {
+        return beanPrice;
+    }
 
-	// 추가
-	private int salePrice;
+    public double getBeanDiscount() {
+        return beanDiscount;
+    }
 
-	private int totalPrice;
+    public int getSalePrice() {
+        return salePrice;
+    }
 
-	private int point;
+    public int getTotalPrice() {
+        return totalPrice;
+    }
 
-	private int totalPoint;
+    public int getPoint() {
+        return point;
+    }
 
-	/* 상품 이미지 */
-	private List<AttachImageVO> imageList;
+    public int getTotalPoint() {
+        return totalPoint;
+    }
 
-	public int getCartId() {
-		return cartId;
-	}
+    public List<AttachImageVO> getImageList() {
+        return imageList;
+    }
 
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
-	}
+    public static Builder builder(int cartId, String memberId, int beanId, int beanCount) {
+        return new Builder(cartId, memberId, beanId, beanCount);
+    }
 
-	public String getMemberId() {
-		return memberId;
-	}
+    public static class Builder {
+        private final int cartId;
+        private final String memberId;
+        private final int beanId;
+        private final int beanCount;
+        private String beanName;
+        private int beanPrice;
+        private double beanDiscount;
+        private int salePrice;
+        private int totalPrice;
+        private int point;
+        private int totalPoint;
+        private List<AttachImageVO> imageList;
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+        public Builder(int cartId, String memberId, int beanId, int beanCount) {
+            this.cartId = cartId;
+            this.memberId = memberId;
+            this.beanId = beanId;
+            this.beanCount = beanCount;
+        }
 
-	public int getBeanId() {
-		return beanId;
-	}
+        public Builder beanName(String beanName) {
+            this.beanName = beanName;
+            return this;
+        }
 
-	public void setBeanId(int beanId) {
-		this.beanId = beanId;
-	}
+        public Builder beanPrice(int beanPrice) {
+            this.beanPrice = beanPrice;
+            return this;
+        }
 
-	public int getBeanCount() {
-		return beanCount;
-	}
+        public Builder beanDiscount(double beanDiscount) {
+            this.beanDiscount = beanDiscount;
+            return this;
+        }
 
-	public void setBeanCount(int beanCount) {
-		this.beanCount = beanCount;
-	}
+        public Builder salePrice(int salePrice) {
+            this.salePrice = salePrice;
+            return this;
+        }
 
-	public String getBeanName() {
-		return beanName;
-	}
+        public Builder totalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
 
-	public void setBeanName(String beanName) {
-		this.beanName = beanName;
-	}
+        public Builder point(int point) {
+            this.point = point;
+            return this;
+        }
 
-	public int getBeanPrice() {
-		return beanPrice;
-	}
+        public Builder totalPoint(int totalPoint) {
+            this.totalPoint = totalPoint;
+            return this;
+        }
 
-	public void setBeanPrice(int beanPrice) {
-		this.beanPrice = beanPrice;
-	}
+        public Builder imageList(List<AttachImageVO> imageList) {
+            this.imageList = imageList;
+            return this;
+        }
 
-	public double getBeanDiscount() {
-		return beanDiscount;
-	}
+        public CartDTO build() {
+            return new CartDTO(this);
+        }
+    }
 
-	public void setBeanDiscount(double beanDiscount) {
-		this.beanDiscount = beanDiscount;
-	}
+    public void initSaleTotal() {
+        this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
+        this.totalPrice = this.salePrice * this.beanCount;
+        this.point = (int) (Math.floor(this.salePrice * 0.05));
+        this.totalPoint = this.point * this.beanCount;
+    }
 
-	public int getSalePrice() {
-		return salePrice;
-	}
-
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public int getTotalPoint() {
-		return totalPoint;
-	}
-
-	public List<AttachImageVO> getImageList() {
-		return imageList;
-	}
-
-	public void setImageList(List<AttachImageVO> imageList) {
-		this.imageList = imageList;
-	}
-
-	public void initSaleTotal() {
-		this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
-		this.totalPrice = this.salePrice * this.beanCount;
-		this.point = (int) (Math.floor(this.salePrice * 0.05));
-		this.totalPoint = this.point * this.beanCount;
-	}
-
-	@Override
-	public String toString() {
-		return "BeanDTO [beanId=" + beanId + ", memberId=" + memberId + ", beanId=" + beanId + ", beanCount="
-				+ beanCount + ", beanName=" + beanName + ", beanPrice=" + beanPrice + ", beanDiscount=" + beanDiscount
-				+ ", salePrice=" + salePrice + ", totalPrice=" + totalPrice + ", point=" + point + ", totalPoint="
-				+ totalPoint + ", imageList=" + imageList + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "CartDTO [cartId=" + cartId + ", memberId=" + memberId + ", beanId=" + beanId + ", beanCount=" + beanCount
+                + ", beanName=" + beanName + ", beanPrice=" + beanPrice + ", beanDiscount=" + beanDiscount
+                + ", salePrice=" + salePrice + ", totalPrice=" + totalPrice + ", point=" + point + ", totalPoint="
+                + totalPoint + ", imageList=" + imageList + "]";
+    }
 }

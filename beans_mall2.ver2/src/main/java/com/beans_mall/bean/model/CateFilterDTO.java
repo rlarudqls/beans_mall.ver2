@@ -1,57 +1,64 @@
 package com.beans_mall.bean.model;
 
-
 public class CateFilterDTO {
-	
-	/* 카테고리 이름 */
-	private String cateName;
-	
-	/* 카테고리 넘버 */
-	private String cateCode;;
-	
-	/* 카테고리 상품 수 */
-	private int cateCount;	
-	
-	/* 국내,국외 분류 */
-	private String cateGroup;
 
-	public String getCateName() {
-		return cateName;
-	}
+    private final String cateName;
+    private final String cateCode;
+    private final int cateCount;
+    private final String cateGroup;
 
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
-	}
+    private CateFilterDTO(Builder builder) {
+        this.cateName = builder.cateName;
+        this.cateCode = builder.cateCode;
+        this.cateCount = builder.cateCount;
+        this.cateGroup = builder.cateGroup;
+    }
 
-	public String getCateCode() {
-		return cateCode;
-	}
+    public String getCateName() {
+        return cateName;
+    }
 
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-		this.cateGroup = cateCode.split("")[0];
-	}
+    public String getCateCode() {
+        return cateCode;
+    }
 
-	public int getCateCount() {
-		return cateCount;
-	}
+    public int getCateCount() {
+        return cateCount;
+    }
 
-	public void setCateCount(int cateCount) {
-		this.cateCount = cateCount;
-	}
+    public String getCateGroup() {
+        return cateGroup;
+    }
 
-	public String getCateGroup() {
-		return cateGroup;
-	}
+    public static Builder builder(String cateName, String cateCode) {
+        return new Builder(cateName, cateCode);
+    }
 
-	public void setCateGroup(String cateGroup) {
-		this.cateGroup = cateGroup;
-	}
+    public static class Builder {
+        private final String cateName;
+        private final String cateCode;
+        private int cateCount;
+        private String cateGroup;
 
-	@Override
-	public String toString() {
-		return "CateFilterDTO [cateName=" + cateName + ", cateCode=" + cateCode + ", cateCount=" + cateCount
-				+ ", cateGroup=" + cateGroup + "]";
-	}
-	
+        public Builder(String cateName, String cateCode) {
+            this.cateName = cateName;
+            this.cateCode = cateCode;
+            this.cateGroup = cateCode.split("")[0];
+        }
+
+        public Builder cateCount(int cateCount) {
+            this.cateCount = cateCount;
+            return this;
+        }
+
+        public CateFilterDTO build() {
+            return new CateFilterDTO(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CateFilterDTO [cateName=" + cateName + ", cateCode=" + cateCode + ", cateCount=" + cateCount
+                + ", cateGroup=" + cateGroup + "]";
+    }
 }

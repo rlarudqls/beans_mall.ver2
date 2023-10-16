@@ -1,47 +1,35 @@
 package com.beans_mall.member.model;
 
-
 public class MemberVO {
 
-    // 회원 id
-    private String memberId;
-
-    // 회원 비밀번호
+    private final String memberId;
     private String memberPw;
-
-    // 회원 이름
     private String memberName;
-
-    // 회원 이메일
     private String memberMail;
-
-    // 회원 우편번호
     private String memberAddr1;
-
-    // 회원 주소
     private String memberAddr2;
-
-    // 회원 상세주소
     private String memberAddr3;
-
-    // 관리자 구분(0:일반사용자, 1:관리자)
     private int adminCk;
-
-    // 등록일자
     private int regDate;
-
-    // 회원 돈
     private int money;
-
-    // 회원 포인트
     private int point;
+
+    private MemberVO(Builder builder) {
+        this.memberId = builder.memberId;
+        this.memberPw = builder.memberPw;
+        this.memberName = builder.memberName;
+        this.memberMail = builder.memberMail;
+        this.memberAddr1 = builder.memberAddr1;
+        this.memberAddr2 = builder.memberAddr2;
+        this.memberAddr3 = builder.memberAddr3;
+        this.adminCk = builder.adminCk;
+        this.regDate = builder.regDate;
+        this.money = builder.money;
+        this.point = builder.point;
+    }
 
     public String getMemberId() {
         return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
     }
 
     public String getMemberPw() {
@@ -122,6 +110,82 @@ public class MemberVO {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public static Builder builder(String memberId) {
+        return new Builder(memberId);
+    }
+
+    public static class Builder {
+        private final String memberId;
+        private String memberPw = "";
+        private String memberName = "";
+        private String memberMail = "";
+        private String memberAddr1 = "";
+        private String memberAddr2 = "";
+        private String memberAddr3 = "";
+        private int adminCk = 0;
+        private int regDate = 0;
+        private int money = 0;
+        private int point = 0;
+
+        public Builder(String memberId) {
+            this.memberId = memberId;
+        }
+
+        public Builder memberPw(String memberPw) {
+            this.memberPw = memberPw;
+            return this;
+        }
+
+        public Builder memberName(String memberName) {
+            this.memberName = memberName;
+            return this;
+        }
+
+        public Builder memberMail(String memberMail) {
+            this.memberMail = memberMail;
+            return this;
+        }
+
+        public Builder memberAddr1(String memberAddr1) {
+            this.memberAddr1 = memberAddr1;
+            return this;
+        }
+
+        public Builder memberAddr2(String memberAddr2) {
+            this.memberAddr2 = memberAddr2;
+            return this;
+        }
+
+        public Builder memberAddr3(String memberAddr3) {
+            this.memberAddr3 = memberAddr3;
+            return this;
+        }
+
+        public Builder adminCk(int adminCk) {
+            this.adminCk = adminCk;
+            return this;
+        }
+
+        public Builder regDate(int regDate) {
+            this.regDate = regDate;
+            return this;
+        }
+
+        public Builder money(int money) {
+            this.money = money;
+            return this;
+        }
+
+        public Builder point(int point) {
+            this.point = point;
+            return this;
+        }
+
+        public MemberVO build() {
+            return new MemberVO(this);
+        }
     }
 
     @Override

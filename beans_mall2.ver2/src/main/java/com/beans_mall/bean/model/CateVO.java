@@ -1,55 +1,64 @@
 package com.beans_mall.bean.model;
 
 public class CateVO {
-	
-	/* 카테고리 등급 */
-	private int tier;
-	
-	/* 카테고리 이름 */
-	private String cateName;
-	
-	/* 카테고리 넘버 */
-	private String cateCode;
-	
-	/* 상위 카테고리 */
-	private String cateParent;
 
-	public int getTier() {
-		return tier;
-	}
+    private final int tier;
+    private final String cateName;
+    private final String cateCode;
+    private final String cateParent;
 
-	public void setTier(int tier) {
-		this.tier = tier;
-	}
+    private CateVO(Builder builder) {
+        this.tier = builder.tier;
+        this.cateName = builder.cateName;
+        this.cateCode = builder.cateCode;
+        this.cateParent = builder.cateParent;
+    }
 
-	public String getCateName() {
-		return cateName;
-	}
+    public int getTier() {
+        return tier;
+    }
 
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
-	}
+    public String getCateName() {
+        return cateName;
+    }
 
-	public String getCateCode() {
-		return cateCode;
-	}
+    public String getCateCode() {
+        return cateCode;
+    }
 
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-	}
+    public String getCateParent() {
+        return cateParent;
+    }
 
-	public String getCateParent() {
-		return cateParent;
-	}
+    public static Builder builder(int tier, String cateName, String cateCode) {
+        return new Builder(tier, cateName, cateCode);
+    }
 
-	public void setCateParent(String cateParent) {
-		this.cateParent = cateParent;
-	}
+    public static class Builder {
+        private final int tier;
+        private final String cateName;
+        private final String cateCode;
+        private String cateParent;
 
-	@Override
-	public String toString() {
-		return "CateVO [tier=" + tier + ", cateName=" + cateName + ", cateCode=" + cateCode + ", cateParent="
-				+ cateParent + "]";
-	}	
+        public Builder(int tier, String cateName, String cateCode) {
+            this.tier = tier;
+            this.cateName = cateName;
+            this.cateCode = cateCode;
+        }
 
+        public Builder cateParent(String cateParent) {
+            this.cateParent = cateParent;
+            return this;
+        }
+
+        public CateVO build() {
+            return new CateVO(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CateVO [tier=" + tier + ", cateName=" + cateName + ", cateCode=" + cateCode + ", cateParent="
+                + cateParent + "]";
+    }
 }

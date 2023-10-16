@@ -4,122 +4,117 @@ import java.util.Arrays;
 
 public class CriteriaVO {
 
-	/* 현재 페이지 번호 */
-	private int pageNum;
-	
-	/* 페이지 표시 개수 */
-	private int amount;
-	
-	/* 페이지 skip */
-	private int skip;
-	
-	/* 검색 타입 */
-	private String type;
-	
-	/* 검색 키워드 */
-	private String keyword;
-	
-	/* 판매자 리스트 */
-	private String[] authorArr;
-	
-	/* 카테고리 코드 */
-	private String cateCode;	
-	
-	/* 상품 번호(댓글 기능에서 사용) */
-	private int beanId;	
-	
-	/* Criteria 생성자 */
-	public CriteriaVO(int pageNum, int amount) {
-		this.pageNum = pageNum;
-		this.amount = amount;
-		this.skip = (pageNum -1) * amount;
-	}
-	
-	/* Criteria 기본 생성자 */
-	public CriteriaVO(){
-		this(1,10);
-	}
-	
-	/* 검색 타입 데이터 배열 변환 */
-	public String[] getTypeArr() {
-		return type == null? new String[] {}:type.split("");
-	}
+    private final int pageNum;
+    private final int amount;
+    private final int skip;
+    private final String type;
+    private final String keyword;
+    private final String[] authorArr;
+    private final String cateCode;
+    private final int beanId;
 
-	public int getPageNum() {
-		return pageNum;
-	}
+    private CriteriaVO(Builder builder) {
+        this.pageNum = builder.pageNum;
+        this.amount = builder.amount;
+        this.skip = builder.skip;
+        this.type = builder.type;
+        this.keyword = builder.keyword;
+        this.authorArr = builder.authorArr;
+        this.cateCode = builder.cateCode;
+        this.beanId = builder.beanId;
+    }
 
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-		this.skip = (pageNum - 1) * this.amount;
-	}
+    public int getPageNum() {
+        return pageNum;
+    }
 
-	public int getAmount() {
-		return amount;
-	}
+    public int getAmount() {
+        return amount;
+    }
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-		this.skip = (this.pageNum - 1) * amount;
-	}
+    public int getSkip() {
+        return skip;
+    }
 
-	public int getSkip() {
-		return skip;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setSkip(int skip) {
-		this.skip = skip;
-	}
+    public String getKeyword() {
+        return keyword;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String[] getAuthorArr() {
+        return authorArr;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public String getCateCode() {
+        return cateCode;
+    }
 
-	public String getKeyword() {
-		return keyword;
-	}
+    public int getBeanId() {
+        return beanId;
+    }
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+    public static Builder builder(int pageNum, int amount) {
+        return new Builder(pageNum, amount);
+    }
 
+    public static class Builder {
+        private final int pageNum;
+        private final int amount;
+        private int skip;
+        private String type;
+        private String keyword;
+        private String[] authorArr;
+        private String cateCode;
+        private int beanId;
 
-	public String[] getAuthorArr() {
-		return authorArr;
-	}
+        public Builder(int pageNum, int amount) {
+            this.pageNum = pageNum;
+            this.amount = amount;
+            this.skip = (pageNum - 1) * amount;
+        }
 
-	public void setAuthorArr(String[] authorArr) {
-		this.authorArr = authorArr;
-	}
+        public Builder skip(int skip) {
+            this.skip = skip;
+            return this;
+        }
 
-	public String getCateCode() {
-		return cateCode;
-	}
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
 
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-	}
+        public Builder keyword(String keyword) {
+            this.keyword = keyword;
+            return this;
+        }
 
-	public int getBeanId() {
-		return beanId;
-	}
+        public Builder authorArr(String[] authorArr) {
+            this.authorArr = authorArr;
+            return this;
+        }
 
-	public void setBookId(int beanId) {
-		this.beanId = beanId;
-	}
+        public Builder cateCode(String cateCode) {
+            this.cateCode = cateCode;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + ", skip=" + skip + ", type=" + type
-				+ ", keyword=" + keyword + ", authorArr=" + Arrays.toString(authorArr) + ", cateCode=" + cateCode
-				+ ", beanId=" + beanId + "]";
-	}
+        public Builder beanId(int beanId) {
+            this.beanId = beanId;
+            return this;
+        }
 
+        public CriteriaVO build() {
+            return new CriteriaVO(this);
+        }
+    }
 
-	
-	
+    @Override
+    public String toString() {
+        return "CriteriaVO [pageNum=" + pageNum + ", amount=" + amount + ", skip=" + skip + ", type=" + type
+                + ", keyword=" + keyword + ", authorArr=" + Arrays.toString(authorArr) + ", cateCode=" + cateCode
+                + ", beanId=" + beanId + "]";
+    }
 }

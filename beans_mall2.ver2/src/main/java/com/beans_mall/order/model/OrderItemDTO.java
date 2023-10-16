@@ -2,131 +2,140 @@ package com.beans_mall.order.model;
 
 public class OrderItemDTO {
 
-	/* 주문 번호 */
-	private String orderId;
-	
-	/* 상품 번호 */
-    private int beanId;
-    
-	/* 주문 수량 */
-    private int beanCount;
-    
-	/* orderItem 기본키 */
+    private final String orderId;
+    private final int beanId;
+    private final int beanCount;
     private int orderItemId;
-    
-	/* 상품 한 개 가격 */
-    private int beanPrice;
-    
-	/* 상품 할인 율 */
-    private double beanDiscount;
-    
-	/* 상품 한개 구매 시 획득 포인트 */
+    private final int beanPrice;
+    private final double beanDiscount;
     private int savePoint;
-    
-	/* DB테이블 존재 하지 않는 데이터 */
-    
-	/* 할인 적용된 가격 */
     private int salePrice;
-    
-	/* 총 가격(할인 적용된 가격 * 주문 수량) */
     private int totalPrice;
-    
-	/* 총 획득 포인트(상품 한개 구매 시 획득 포인트 * 수량) */
     private int totalSavePoint;
 
-	public String getOrderId() {
-		return orderId;
-	}
+    private OrderItemDTO(Builder builder) {
+        this.orderId = builder.orderId;
+        this.beanId = builder.beanId;
+        this.beanCount = builder.beanCount;
+        this.orderItemId = builder.orderItemId;
+        this.beanPrice = builder.beanPrice;
+        this.beanDiscount = builder.beanDiscount;
+        this.savePoint = builder.savePoint;
+        this.salePrice = builder.salePrice;
+        this.totalPrice = builder.totalPrice;
+        this.totalSavePoint = builder.totalSavePoint;
+    }
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
+    public String getOrderId() {
+        return orderId;
+    }
 
-	public int getBeanId() {
-		return beanId;
-	}
+    public int getBeanId() {
+        return beanId;
+    }
 
-	public void setBeanId(int beanId) {
-		this.beanId = beanId;
-	}
+    public int getBeanCount() {
+        return beanCount;
+    }
 
-	public int getBeanCount() {
-		return beanCount;
-	}
+    public int getOrderItemId() {
+        return orderItemId;
+    }
 
-	public void setBeanCount(int beanCount) {
-		this.beanCount = beanCount;
-	}
+    public void setOrderItemId(int orderItemId) {
+        this.orderItemId = orderItemId;
+    }
 
-	public int getOrderItemId() {
-		return orderItemId;
-	}
+    public int getBeanPrice() {
+        return beanPrice;
+    }
 
-	public void setOrderItemId(int orderItemId) {
-		this.orderItemId = orderItemId;
-	}
+    public double getBeanDiscount() {
+        return beanDiscount;
+    }
 
-	public int getBeanPrice() {
-		return beanPrice;
-	}
+    public int getSavePoint() {
+        return savePoint;
+    }
 
-	public void setBeanPrice(int beanPrice) {
-		this.beanPrice = beanPrice;
-	}
+    public int getSalePrice() {
+        return salePrice;
+    }
 
-	public double getBeanDiscount() {
-		return beanDiscount;
-	}
+    public int getTotalPrice() {
+        return totalPrice;
+    }
 
-	public void setBeanDiscount(double beanDiscount) {
-		this.beanDiscount = beanDiscount;
-	}
+    public int getTotalSavePoint() {
+        return totalSavePoint;
+    }
 
-	public int getSavePoint() {
-		return savePoint;
-	}
+    public static Builder builder(String orderId, int beanId, int beanCount, int beanPrice, double beanDiscount) {
+        return new Builder(orderId, beanId, beanCount, beanPrice, beanDiscount);
+    }
 
-	public void setSavePoint(int savePoint) {
-		this.savePoint = savePoint;
-	}
+    public static class Builder {
+        private final String orderId;
+        private final int beanId;
+        private final int beanCount;
+        private int orderItemId;
+        private final int beanPrice;
+        private final double beanDiscount;
+        private int savePoint;
+        private int salePrice;
+        private int totalPrice;
+        private int totalSavePoint;
 
-	public int getSalePrice() {
-		return salePrice;
-	}
+        public Builder(String orderId, int beanId, int beanCount, int beanPrice, double beanDiscount) {
+            this.orderId = orderId;
+            this.beanId = beanId;
+            this.beanCount = beanCount;
+            this.beanPrice = beanPrice;
+            this.beanDiscount = beanDiscount;
+        }
 
-	public void setSalePrice(int salePrice) {
-		this.salePrice = salePrice;
-	}
+        public Builder orderItemId(int orderItemId) {
+            this.orderItemId = orderItemId;
+            return this;
+        }
 
-	public int getTotalPrice() {
-		return totalPrice;
-	}
+        public Builder savePoint(int savePoint) {
+            this.savePoint = savePoint;
+            return this;
+        }
 
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+        public Builder salePrice(int salePrice) {
+            this.salePrice = salePrice;
+            return this;
+        }
 
-	public int getTotalSavePoint() {
-		return totalSavePoint;
-	}
+        public Builder totalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
 
-	public void setTotalSavePoint(int totalSavePoint) {
-		this.totalSavePoint = totalSavePoint;
-	}
+        public Builder totalSavePoint(int totalSavePoint) {
+            this.totalSavePoint = totalSavePoint;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		return "OrderItemDTO [orderId=" + orderId + ", beanId=" + beanId + ", beanCount=" + beanCount + ", orderItemId="
-				+ orderItemId + ", beanPrice=" + beanPrice + ", beanDiscount=" + beanDiscount + ", savePoint="
-				+ savePoint + ", salePrice=" + salePrice + ", totalPrice=" + totalPrice + ", totalSavePoint="
-				+ totalSavePoint + "]";
-	}
-	
-	public void initSaleTotal() {
-		this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
-		this.totalPrice = this.salePrice * this.beanCount;
-		this.savePoint = (int) (Math.floor(this.salePrice * 0.05));
-		this.totalSavePoint = this.savePoint * this.beanCount;
-	}		
-	
+        public OrderItemDTO build() {
+            return new OrderItemDTO(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItemDTO [orderId=" + orderId + ", beanId=" + beanId + ", beanCount=" + beanCount + ", orderItemId="
+                + orderItemId + ", beanPrice=" + beanPrice + ", beanDiscount=" + beanDiscount + ", savePoint="
+                + savePoint + ", salePrice=" + salePrice + ", totalPrice=" + totalPrice + ", totalSavePoint="
+                + totalSavePoint + "]";
+    }
+
+    public void initSaleTotal() {
+        this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
+        this.totalPrice = this.salePrice * this.beanCount;
+        this.savePoint = (int) (Math.floor(this.salePrice * 0.05));
+        this.totalSavePoint = this.savePoint * this.beanCount;
+    }
 }

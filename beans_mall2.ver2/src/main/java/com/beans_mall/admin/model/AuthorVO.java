@@ -4,80 +4,97 @@ import java.util.Date;
 
 public class AuthorVO {
 
-	/* 판매자 아이디 */
-	private int authorId;
+    private final int authorId;
+    private final String authorName;
+    private final String nationId;
+    private final String nationName;
+    private final String authorIntro;
+    private final Date regDate;
+    private final Date updateDate;
 
-	/* 판매자 이름 */
-	private String authorName;
+    private AuthorVO(Builder builder) {
+        this.authorId = builder.authorId;
+        this.authorName = builder.authorName;
+        this.nationId = builder.nationId;
+        this.nationName = builder.nationName;
+        this.authorIntro = builder.authorIntro;
+        this.regDate = builder.regDate;
+        this.updateDate = builder.updateDate;
+    }
 
-	/* 국가 id */
-	private String nationId;
+    public int getAuthorId() {
+        return authorId;
+    }
 
-	/* 판매자 국가 */
-	private String nationName;
+    public String getAuthorName() {
+        return authorName;
+    }
 
-	/* 판매자 소개 */
-	private String authorIntro;
+    public String getNationId() {
+        return nationId;
+    }
 
-	/* 등록 날짜 */
-	private Date regDate;
+    public String getNationName() {
+        return nationName;
+    }
 
-	/* 수정 날짜 */
-	private Date updateDate;
+    public String getAuthorIntro() {
+        return authorIntro;
+    }
 
-	public int getAuthorId() {
-		return authorId;
-	}
+    public Date getRegDate() {
+        return regDate;
+    }
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
-	}
+    public Date getUpdateDate() {
+        return updateDate;
+    }
 
-	public String getAuthorName() {
-		return authorName;
-	}
+    public static Builder builder(int authorId, String authorName) {
+        return new Builder(authorId, authorName);
+    }
 
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
+    public static class Builder {
+        private final int authorId;
+        private final String authorName;
+        private String nationId;
+        private String nationName;
+        private String authorIntro;
+        private Date regDate;
+        private Date updateDate;
 
-	public String getNationId() {
-		return nationId;
-	}
+        public Builder(int authorId, String authorName) {
+            this.authorId = authorId;
+            this.authorName = authorName;
+        }
 
-	public void setNationId(String nationId) {
-		this.nationId = nationId;
-	}
+        public Builder nationId(String nationId) {
+            this.nationId = nationId;
+            return this;
+        }
 
-	public String getNationName() {
-		return nationName;
-	}
+        public Builder nationName(String nationName) {
+            this.nationName = nationName;
+            return this;
+        }
 
-	public void setNationName(String nationName) {
-		this.nationName = nationName;
-	}
+        public Builder authorIntro(String authorIntro) {
+            this.authorIntro = authorIntro;
+            return this;
+        }
 
-	public String getAuthorIntro() {
-		return authorIntro;
-	}
+        public Builder regDate(Date regDate) {
+            this.regDate = regDate;
+            return this;
+        }
 
-	public void setAuthorIntro(String authorIntro) {
-		this.authorIntro = authorIntro;
-	}
+        public Builder updateDate(Date updateDate) {
+            this.updateDate = updateDate;
+            return this;
+        }
 
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
+        public AuthorVO build() {
+            return new AuthorVO(this);
+        }
+    }
 }

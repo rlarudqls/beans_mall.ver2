@@ -2,63 +2,69 @@ package com.beans_mall.attach.model;
 
 public class AttachImageVO {
 
-	/* 경로 */
-	private String uploadPath;
+    private final String uploadPath;
+    private final String uuId;
+    private final String fileName;
+    private final int beanId;
+    private String imageUrl;
 
-	/* uuId */
-	private String uuId;
+    private AttachImageVO(Builder builder) {
+        this.uploadPath = builder.uploadPath;
+        this.uuId = builder.uuId;
+        this.fileName = builder.fileName;
+        this.beanId = builder.beanId;
+        this.imageUrl = builder.imageUrl;
+    }
 
-	/* 파일 이름 */
-	private String fileName;
+    public String getUploadPath() {
+        return uploadPath;
+    }
 
-	/* 상품 id */
-	private int beanId;
+    public String getUuid() {
+        return uuId;
+    }
 
-	public String getUploadPath() {
-		return uploadPath;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	private String imageUrl;
+    public int getBeanId() {
+        return beanId;
+    }
 
-	public void setUploadPath(String uploadPath) {
-		this.uploadPath = uploadPath;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public String getUuid() {
-		return uuId;
-	}
+    public static Builder builder(String uuId, String fileName, int beanId) {
+        return new Builder(uuId, fileName, beanId);
+    }
 
-	public void setUuid(String uuId) {
-		this.uuId = uuId;
-	}
+    public static class Builder {
+        private final String uuId;
+        private final String fileName;
+        private final int beanId;
+        private String uploadPath;
+        private String imageUrl;
 
-	public String getFileName() {
-		return fileName;
-	}
+        public Builder(String uuId, String fileName, int beanId) {
+            this.uuId = uuId;
+            this.fileName = fileName;
+            this.beanId = beanId;
+        }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+        public Builder uploadPath(String uploadPath) {
+            this.uploadPath = uploadPath;
+            return this;
+        }
 
-	public int getBeanId() {
-		return beanId;
-	}
+        public Builder imageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
 
-	public void setBeanId(int beanId) {
-		this.beanId = beanId;
-	}
-
-	@Override
-	public String toString() {
-		return "AttachImageVO [uploadPath=" + uploadPath + ", uuId=" + uuId + ", fileName=" + fileName + ", beanId="
-				+ beanId + "]";
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+        public AttachImageVO build() {
+            return new AttachImageVO(this);
+        }
+    }
 }
