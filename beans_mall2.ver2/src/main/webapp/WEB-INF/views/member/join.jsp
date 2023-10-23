@@ -363,17 +363,24 @@
 						class="id_input_re_2">아이디가 이미 존재합니다.</span> <span
 						class="final_id_ck">아이디를 입력해주세요.</span>
 				</div>
+				<!-- 비밀번호 입력란 -->
 				<div class="pw_wrap">
 					<div class="pw_name">비밀번호</div>
-					<input class="pw_input" name="memberPw"> <span
-						class="final_pw_ck">비밀번호를 입력해주세요.</span>
+					<input class="pw_input" name="memberPw" type="password">
+					<!-- type 속성을 password로 변경 -->
+					<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
 				</div>
+
+				<!-- 비밀번호 확인 입력란 -->
 				<div class="pwck_wrap">
 					<div class="pwck_name">비밀번호 확인</div>
-					<input class="pwck_input"> <span class="final_pwck_ck">비밀번호
-						확인을 입력해주세요.</span> <span class="pwck_input_re_1">비밀번호가 일치합니다.</span> <span
+					<input class="pwck_input" type="password">
+					<!-- type 속성을 password로 변경 -->
+					<span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span> <span
+						class="pwck_input_re_1">비밀번호가 일치합니다.</span> <span
 						class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
 				</div>
+
 				<div class="user_wrap">
 					<div class="user_name">이름</div>
 					<input class="user_input" name="memberName"> <span
@@ -422,6 +429,7 @@
 						것으로 간주됩니다.
 					</div>
 				</div>
+			</div>
 		</form>
 	</div>
 	<script>
@@ -626,6 +634,7 @@
 				return true;
 			}
 		}
+		var pw = hashPassword($('.pw_input').val());
 	</script>
 
 </body>
