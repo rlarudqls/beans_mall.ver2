@@ -2,13 +2,13 @@ package com.beans_mall.attach.model;
 
 public class AttachImageVO {
 
-    private final String uploadPath;
-    private final String uuId;
+    private String uploadPath;
+    private String uuId;
     private final String fileName;
     private final int beanId;
     private String imageUrl;
 
-    private AttachImageVO(Builder builder) {
+    public AttachImageVO(Builder builder) {
         this.uploadPath = builder.uploadPath;
         this.uuId = builder.uuId;
         this.fileName = builder.fileName;
@@ -34,6 +34,18 @@ public class AttachImageVO {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuId = uuid;
     }
 
     public static Builder builder(String uuId, String fileName, int beanId) {
@@ -67,4 +79,9 @@ public class AttachImageVO {
             return new AttachImageVO(this);
         }
     }
+
+	public void setFileName(String uploadFileName) {
+		// TODO Auto-generated method stub
+		
+	}
 }

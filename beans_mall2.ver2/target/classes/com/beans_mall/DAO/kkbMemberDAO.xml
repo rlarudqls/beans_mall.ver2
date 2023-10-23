@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beans_mall.member.dao.kkbMemberDAO">
+
+	<insert id="memberJoin">
+		insert into beans_mall_member values(#{memberId}, #{memberPw},
+		#{memberName}, #{memberMail}, #{memberAddr1}, #{memberAddr2},
+		#{memberAddr3}, 0, now(), 100000, 5000 )
+
+	</insert>
+	<!-- 아이디 중복검사 -->
+	<select id="idCheck" resultType="int">
+
+		select count(*) from beans_mall_member where memberId = #{memberId}
+
+	</select>
+
+	<!-- 로그인 -->
+	<select id="memberLogin" resultType="com.beans_mall.member.model.MemberVO">
+
+		select memberId, memberPw, memberName, adminck, money, point from
+		beans_mall_member where memberId = #{memberId}
+	</select>
+	<!-- 주문자 정보 -->
+	<select id="getMemberInfo"
+		resultType="com.beans_mall.member.model.MemberVO">
+
+		SELECT memberId, memberName, memberMail, memberAddr1, memberAddr2,
+		memberAddr3, money, point
+		FROM beans_mall_member
+		WHERE memberId = #{memberId}
+
+	</select>
+</mapper>

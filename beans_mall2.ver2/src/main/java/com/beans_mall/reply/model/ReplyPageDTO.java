@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.beans_mall.bean.model.PageDTO;
+import com.beans_mall.reply.dao.KKBReplyDAO.GetReplyListBuilder;
 
 public class ReplyPageDTO {
     
@@ -23,8 +24,8 @@ public class ReplyPageDTO {
         return Collections.unmodifiableList(list);
     }
 
-    public void setList(List<ReplyDTO> list) {
-        this.list = list;
+    public void setList(GetReplyListBuilder getReplyListBuilder) {
+        this.list = (List<ReplyDTO>) getReplyListBuilder;
     }
 
     public PageDTO getPageInfo() {

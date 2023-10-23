@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.beans_mall.bean.model.CriteriaVO;
 import com.beans_mall.bean.model.PageDTO;
 import com.beans_mall.reply.dao.KKBReplyDAO;
+import com.beans_mall.reply.dao.KKBReplyDAO.DeleteReplyBuilder;
 import com.beans_mall.reply.model.ReplyDTO;
 import com.beans_mall.reply.model.ReplyPageDTO;
 import com.beans_mall.reply.model.UpdateReplyDTO;
@@ -39,7 +40,6 @@ public class ReplyServiceImpl implements ReplyService {
 	public ReplyPageDTO replyList(CriteriaVO cri) {
 		ReplyPageDTO dto = new ReplyPageDTO();
 		dto.setList(kkbReplyDAO.getReplyList(cri));
-		dto.setPageInfo(new PageDTO(cri, kkbReplyDAO.getReplyTotal(cri.getBeanId())));
 		return dto;
 	}
 
@@ -52,7 +52,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public ReplyDTO getUpdateReply(int replyId) {
-		return kkbReplyDAO.getUpdateReply(replyId);
+		return (ReplyDTO) kkbReplyDAO.getUpdateReply(replyId);
 	}
 
 	@Override

@@ -117,4 +117,19 @@ public class CriteriaVO {
                 + ", keyword=" + keyword + ", authorArr=" + Arrays.toString(authorArr) + ", cateCode=" + cateCode
                 + ", beanId=" + beanId + "]";
     }
+
+	public void setAuthorArr(String[] authorArr2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCateCode(String cateCode2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAmount(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

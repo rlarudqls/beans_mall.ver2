@@ -21,10 +21,8 @@ public class UpdateReplyDTO {
 
     /**
      * UpdateReplyDTO 객체를 생성합니다.
-     * @param beanId 업데이트할 상품(댓글 대상)의 고유 식별자(ID).
-     * @param ratingAvg 업데이트된 댓글 평균 평점.
      */
-    public UpdateReplyDTO(int beanId, double ratingAvg) {
+    public UpdateReplyDTO() {
         this.beanId = beanId;
         this.ratingAvg = ratingAvg;
     }
@@ -49,4 +47,14 @@ public class UpdateReplyDTO {
     public String toString() {
         return "UpdateReplyDTO [beanId=" + beanId + ", ratingAvg=" + ratingAvg + "]";
     }
+
+	public void setBeanId(int beanId2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRatingAvg(Double ratingAvg2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

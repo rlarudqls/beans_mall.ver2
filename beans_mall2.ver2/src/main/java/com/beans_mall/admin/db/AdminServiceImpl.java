@@ -26,17 +26,20 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	@Override
 	public void beanEnroll(BeanVO bean) {
-		log.info("(service)beanEnroll........");
-		kkbAdminDAO.beanEnroll(bean);
+	    log.info("(service)beanEnroll........");
+	    kkbAdminDAO.beanEnroll(bean);
 
-		if (bean.getImageList() == null || bean.getImageList().size() <= 0) {
-			return;
-		}
+	    if (bean.getImageList() == null || bean.getImageList().size() <= 0) {
+	        return;
+	    }
 
-		bean.getImageList().forEach(attach -> {
-			attach.setBeanId(bean.getBeanId());
-			kkbAdminDAO.imageEnroll(attach);
-		});
+	    bean.getImageList().forEach(attach -> {
+	        AttachImageVO image = AttachImageVO.builder(attach.getUuid(), attach.getFileName(), bean.getBeanId())
+	                .uploadPath(attach.getUploadPath())
+	                .imageUrl(attach.getImageUrl())
+	                .build();
+	        kkbAdminDAO.imageEnroll(image);
+	    });
 	}
 
 	/* 카테고리 리스트 */
@@ -71,27 +74,32 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	@Override
 	public int goodsModify(BeanVO vo) {
-		int result = kkbAdminDAO.beanModify(vo);
+	    int result = kkbAdminDAO.beanModify(vo);
 
-		if (result == 1 && vo.getImageList() != null && vo.getImageList().size() > 0) {
-			kkbAdminDAO.deleteImageAll(vo.getBeanId());
-			vo.getImageList().forEach(attach -> {
-				attach.setBeanId(vo.getBeanId());
-				kkbAdminDAO.imageEnroll(attach);
-			});
-		}
+	    if (result == 1 && vo.getImageList() != null && vo.getImageList().size() > 0) {
+	        kkbAdminDAO.deleteImageAll(vo.getBeanId());
+	        vo.getImageList().forEach(attach -> {
+	            AttachImageVO image = AttachImageVO.builder(attach.getUuid(), attach.getFileName(), vo.getBeanId())
+	                    .uploadPath(attach.getUploadPath())
+	                    .imageUrl(attach.getImageUrl())
+	                    .build();
+	            kkbAdminDAO.imageEnroll(image);
+	        });
+	    }
 
-		return result;
+	    return result;
 	}
 
 	/* 상품 정보 삭제 */
 	@Override
 	@Transactional
 	public int goodsDelete(int beanId) {
-		log.info("beanDelete..........");
-		kkbAdminDAO.deleteImageAll(beanId);
-		return kkbAdminDAO.beanDelete(beanId);
+	    log.info("beanDelete..........");
+	    kkbAdminDAO.deleteImageAll(beanId);
+	    kkbAdminDAO.beanDelete(beanId); // 수정된 반환 유형을 사용
+	    return beanId; // beanId를 반환
 	}
+
 
 	/* 지정 상품 이미지 정보 얻기 */
 	@Override

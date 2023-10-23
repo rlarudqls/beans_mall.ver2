@@ -10,7 +10,7 @@ import com.beans_mall.order.model.OrderDTO;
 
 public interface KKBAdminDAO {
 
-    KKBAdminDAO beanEnroll(BeanVO bean);
+    void beanEnroll(BeanVO bean);
 
     List<CateVO> cateList();
 
@@ -20,9 +20,9 @@ public interface KKBAdminDAO {
 
     BeanVO beanGetDetail(int beanId);
 
-    KKBAdminDAO beanModify(BeanVO vo);
+    int beanModify(BeanVO vo);
 
-    KKBAdminDAO beanDelete(int beanId);
+    int beanDelete(int beanId);
 
     KKBAdminDAO imageEnroll(AttachImageVO vo);
 

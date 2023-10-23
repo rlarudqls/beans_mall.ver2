@@ -26,7 +26,7 @@ public class KKB_BoardController {
 
     @GetMapping("/create")
     public String createBoardForm(Model model) {
-        model.addAttribute("board", new KKB_BoardVO());
+        model.addAttribute("board", new KKB_BoardVO(null));
         return "board/kkb_boardCreate";
     }
 

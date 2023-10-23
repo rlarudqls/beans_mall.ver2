@@ -19,7 +19,7 @@ public class CartDTO {
     private int totalPoint;
     private List<AttachImageVO> imageList;
 
-    private CartDTO(Builder builder) {
+    public CartDTO(Builder builder) {
         this.cartId = builder.cartId;
         this.memberId = builder.memberId;
         this.beanId = builder.beanId;
@@ -80,6 +80,10 @@ public class CartDTO {
 
     public List<AttachImageVO> getImageList() {
         return imageList;
+    }
+
+    public void setImageList(List<AttachImageVO> imageList) {
+        this.imageList = imageList;
     }
 
     public static Builder builder(int cartId, String memberId, int beanId, int beanCount) {
@@ -166,4 +170,14 @@ public class CartDTO {
                 + ", salePrice=" + salePrice + ", totalPrice=" + totalPrice + ", point=" + point + ", totalPoint="
                 + totalPoint + ", imageList=" + imageList + "]";
     }
+
+	public void setMemberId(String memberId2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setBeanId(int beanId2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

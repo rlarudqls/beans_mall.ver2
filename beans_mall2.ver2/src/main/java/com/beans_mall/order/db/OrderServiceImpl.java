@@ -121,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
 		/* 재고 변동 적용 */
 		for (OrderItemDTO oit : ord.getOrders()) {
 			/* 변동 재고 값 구하기 */
-			BeanVO bean = kkbBeanDAO.getGoodsInfo(oit.getBeanId());
+			BeanVO bean = (BeanVO) kkbBeanDAO.getGoodsInfo(oit.getBeanId());
 			bean.setBeanStock(bean.getBeanStock() - oit.getBeanCount());
 			/* 변동 값 DB 적용 */
 			kkbOrderDAO.deductStock(bean);
@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
 
 		/* 장바구니 제거 */
 		for (OrderItemDTO oit : ord.getOrders()) {
-			CartDTO dto = new CartDTO();
+			CartDTO dto = new CartDTO(null);
 			dto.setMemberId(ord.getMemberId());
 			dto.setBeanId(oit.getBeanId());
 

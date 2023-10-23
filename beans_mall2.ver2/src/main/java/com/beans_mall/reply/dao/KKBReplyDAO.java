@@ -8,21 +8,21 @@ import java.util.List;
 
 public interface KKBReplyDAO {
 
-    EnrollReplyBuilder enrollReply(ReplyDTO dto);
+    int enrollReply(ReplyDTO dto);
 
-    CheckReplyBuilder checkReply(ReplyDTO dto);
+    Integer checkReply(ReplyDTO dto);
 
     GetReplyListBuilder getReplyList(CriteriaVO cri);
 
     GetReplyTotalBuilder getReplyTotal(int beanId);
 
-    UpdateReplyBuilder updateReply(ReplyDTO dto);
+    int updateReply(ReplyDTO dto);
 
     GetUpdateReplyBuilder getUpdateReply(int replyId);
 
-    DeleteReplyBuilder deleteReply(int replyId);
+    int deleteReply(int replyId);
 
-    GetRatingAverageBuilder getRatingAverage(int beanId);
+    Double getRatingAverage(int beanId);
 
     UpdateRatingBuilder updateRating(UpdateReplyDTO dto);
 

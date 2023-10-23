@@ -14,7 +14,7 @@ public class MemberVO {
     private int money;
     private int point;
 
-    private MemberVO(Builder builder) {
+    public MemberVO(Builder builder) {
         this.memberId = builder.memberId;
         this.memberPw = builder.memberPw;
         this.memberName = builder.memberName;

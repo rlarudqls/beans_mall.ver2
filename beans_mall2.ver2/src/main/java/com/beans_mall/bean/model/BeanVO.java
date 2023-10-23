@@ -208,5 +208,16 @@ public class BeanVO {
         public BeanVO build() {
             return new BeanVO(this);
         }
+        
     }
+
+	public void setImageList(List<AttachImageVO> imageList2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setBeanStock(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

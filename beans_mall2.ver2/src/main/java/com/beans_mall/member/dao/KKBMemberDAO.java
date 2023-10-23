@@ -6,11 +6,11 @@ public interface KKBMemberDAO {
 
     MemberJoinBuilder memberJoin(MemberVO member);
 
-    IdCheckBuilder idCheck(String memberId);
+    int idCheck(String memberId);
 
-    MemberLoginBuilder memberLogin(MemberVO member);
+    MemberVO memberLogin(MemberVO member);
 
-    GetMemberInfoBuilder getMemberInfo(String memberId);
+    MemberVO getMemberInfo(String memberId);
 
     interface MemberJoinBuilder {
         int buildMemberJoin();

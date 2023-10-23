@@ -18,7 +18,7 @@ public interface KKBBeanDAO {
 
     int buildGoodsTotal();
 
-    KKBBeanDAO getAuthorIdList(String keyword);
+    String[] getAuthorIdList(String keyword);
 
     String[] buildAuthorIdList();
 
@@ -30,7 +30,7 @@ public interface KKBBeanDAO {
 
     List<CateVO> buildCateCode2();
 
-    KKBBeanDAO getCateList(CriteriaVO cri);
+    String[] getCateList(CriteriaVO cri);
 
     String[] buildCateList();
 
@@ -38,7 +38,7 @@ public interface KKBBeanDAO {
 
     CateFilterDTO buildCateInfo();
 
-    KKBBeanDAO getGoodsInfo(int beanId);
+    BeanVO getGoodsInfo(int beanId);
 
     BeanVO buildGoodsInfo();
 

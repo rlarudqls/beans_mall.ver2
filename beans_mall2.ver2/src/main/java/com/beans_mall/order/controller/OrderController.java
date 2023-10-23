@@ -41,11 +41,11 @@ public class OrderController {
     public String orderPagePOST(@RequestParam("memberId") String memberId, OrderDTO od, HttpServletRequest request) {
         System.out.println(od);
 
-        od.setMemberId(memberId);
+        od.setMemberAddr1(memberId);
         orderService.order(od);
 
-        MemberVO member = new MemberVO();
-        member.setMemberId(od.getMemberId());
+        MemberVO member = new MemberVO(null);
+        member.setMemberAddr1(od.getMemberId());
 
         HttpSession session = request.getSession();
 

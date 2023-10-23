@@ -6,7 +6,7 @@ import com.beans_mall.attach.model.AttachImageVO;
 
 public interface KKBAttachDAO {
 
-    KKBAttachDAO getAttachList(int beanId);
+    List<AttachImageVO> getAttachList(int beanId);
 
     List<AttachImageVO> build();
 }

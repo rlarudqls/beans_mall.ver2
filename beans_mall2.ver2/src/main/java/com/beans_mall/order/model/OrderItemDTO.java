@@ -138,4 +138,14 @@ public class OrderItemDTO {
         this.savePoint = (int) (Math.floor(this.salePrice * 0.05));
         this.totalSavePoint = this.savePoint * this.beanCount;
     }
+
+	public void setBeanCount(int beanCount2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setOrderId(String orderId2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

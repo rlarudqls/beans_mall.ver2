@@ -10,7 +10,7 @@ public class KKB_BoardVO {
     private final String writer;
     private final Date createdAt;
 
-    private KKB_BoardVO(Builder builder) {
+    public KKB_BoardVO(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
         this.content = builder.content;
@@ -87,4 +87,8 @@ public class KKB_BoardVO {
         return "KKB_BoardVO [id=" + id + ", title=" + title + ", content=" + content + ", writer=" + writer
                 + ", createdAt=" + createdAt + "]";
     }
+
+	public void setId(int id2) {
+		
+	}
 }

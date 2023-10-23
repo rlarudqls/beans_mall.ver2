@@ -7,15 +7,15 @@ import com.beans_mall.bean.model.CriteriaVO;
 
 public interface KKBAuthorDAO {
 
-    KKBAuthorDAO authorEnroll(AuthorVO author);
+    void authorEnroll(AuthorVO author) throws Exception;
 
-    List<AuthorVO> authorGetList(CriteriaVO cri);
+    List<AuthorVO> authorGetList(CriteriaVO cri) throws Exception;
 
-    int authorGetTotal(CriteriaVO cri);
+    int authorGetTotal(CriteriaVO cri) throws Exception;
 
-    KKBAuthorDAO authorGetDetail(int authorId);
+    AuthorVO authorGetDetail(int authorId) throws Exception;
 
-    KKBAuthorDAO authorModify(AuthorVO author);
+    int authorModify(AuthorVO author) throws Exception;
 
-    KKBAuthorDAO authorDelete(int authorId);
+    int authorDelete(int authorId);
 }

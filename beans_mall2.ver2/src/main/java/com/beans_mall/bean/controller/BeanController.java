@@ -95,7 +95,6 @@ public class BeanController {
 			return "search";
 		}
 
-		model.addAttribute("pageMaker", new PageDTO(cri, beanService.goodsGetTotal(cri)));
 
 		String[] typeArr = cri.getType().split("");
 

@@ -11,13 +11,13 @@ import com.beans_mall.order.model.OrderPageItemDTO;
 public interface KKBOrderDAO {
 
     // 주문 상품 정보 조회
-    OrderInfoBuilder getGoodsInfo(int beanId);
+    OrderPageItemDTO getGoodsInfo(int beanId);
 
     // 주문 테이블 등록
-    OrderBuilder enrollOrder();
+    OrderBuilder enrollOrder(OrderDTO ord);
 
     // 주문 아이템 테이블 등록
-    OrderItemBuilder enrollOrderItem();
+    OrderItemBuilder enrollOrderItem(OrderItemDTO oit);
 
     // 주문 금액 차감
     MoneyDeductBuilder deductMoney(MemberVO member);
@@ -26,7 +26,7 @@ public interface KKBOrderDAO {
     StockDeductBuilder deductStock(BeanVO bean);
 
     // 주문 취소
-    OrderCancelBuilder orderCancel();
+    OrderCancelBuilder orderCancel(String string);
 
     interface OrderInfoBuilder {
         OrderPageItemDTO build();
@@ -65,4 +65,10 @@ public interface KKBOrderDAO {
 
         List<OrderItemDTO> getOrderItemInfo();
     }
+
+	OrderItemDTO getOrderInfo(int beanId);
+
+	List<OrderItemDTO> getOrderItemInfo(String orderId);
+
+	OrderDTO getOrder(String orderId);
 }

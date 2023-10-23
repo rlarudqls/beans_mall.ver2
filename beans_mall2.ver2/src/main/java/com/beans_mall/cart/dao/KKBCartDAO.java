@@ -6,19 +6,19 @@ import com.beans_mall.cart.model.CartDTO;
 
 public interface KKBCartDAO {
 
-    KKBCartDAO addCart(CartDTO cart) throws Exception;
+    int addCart(CartDTO cart) throws Exception;
 
     int buildAddCart() throws Exception;
 
-    KKBCartDAO deleteCart(int cartId);
+    int deleteCart(int cartId);
 
     int buildDeleteCart();
 
-    KKBCartDAO modifyCount(CartDTO cart);
+    int modifyCount(CartDTO cart);
 
     int buildModifyCount();
 
-    KKBCartDAO getCart(String memberId);
+    List<CartDTO> getCart(String memberId);
 
     List<CartDTO> buildGetCart();
 

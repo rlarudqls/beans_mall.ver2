@@ -118,4 +118,9 @@ public class SelectDTO {
                 + ratingAvg + ", imageList=" + imageList + ", saleRate=" + saleRate + ", priceSale=" + priceSale
                 + ", priceOrigin=" + priceOrigin + "]";
     }
+
+	public void setImageList(List<AttachImageVO> imageList2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

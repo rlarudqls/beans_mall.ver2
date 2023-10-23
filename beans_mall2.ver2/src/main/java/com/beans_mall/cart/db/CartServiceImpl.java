@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
 	public int addCart(CartDTO cart) {
 
 		// 장바구니 데이터 체크
-		CartDTO checkCart = kkbCartDAO.checkCart(cart);
+		CartDTO checkCart = (CartDTO) kkbCartDAO.checkCart(cart);
 
 		if (checkCart != null) {
 			return 2;
@@ -51,7 +51,7 @@ public class CartServiceImpl implements CartService {
 			/* 이미지 정보 얻기 */
 			int beanId = dto.getBeanId();
 
-			List<AttachImageVO> imageList = kkbAttachDAO.getAttachList(beanId);
+			List<AttachImageVO> imageList = (List<AttachImageVO>) kkbAttachDAO.getAttachList(beanId);
 
 			dto.setImageList(imageList);
 		}

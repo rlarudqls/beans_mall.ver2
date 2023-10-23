@@ -79,7 +79,6 @@ public class AdminController {
             return;
         }
 
-        model.addAttribute("pageMaker", new PageDTO(cri, adminService.goodsGetTotal(cri)));
     }
 
     @RequestMapping(value = "goodsEnroll", method = RequestMethod.GET)
@@ -168,7 +167,6 @@ public class AdminController {
             model.addAttribute("listCheck", "empty");
         }
 
-        model.addAttribute("pageMaker", new PageDTO(cri, authorService.authorGetTotal(cri)));
     }
 
     @RequestMapping(value = "authorEnroll.do", method = RequestMethod.POST)
@@ -253,7 +251,6 @@ public class AdminController {
             model.addAttribute("listCheck", "empty");
         }
 
-        model.addAttribute("pageMaker", new PageDTO(cri, authorService.authorGetTotal(cri)));
     }
 
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -299,7 +296,7 @@ public class AdminController {
 
         for (MultipartFile multipartFile : uploadFile) {
 
-            AttachImageVO vo = new AttachImageVO();
+            AttachImageVO vo = new AttachImageVO(null);
 
             String uploadFileName = multipartFile.getOriginalFilename();
             vo.setFileName(uploadFileName);
@@ -365,7 +362,6 @@ public class AdminController {
 
         if (!list.isEmpty()) {
             model.addAttribute("list", list);
-            model.addAttribute("pageMaker", new PageDTO(cri, adminService.getOrderTotal(cri)));
         } else {
             model.addAttribute("listCheck", "empty");
         }

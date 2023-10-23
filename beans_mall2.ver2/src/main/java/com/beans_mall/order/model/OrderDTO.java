@@ -208,4 +208,19 @@ public class OrderDTO {
 
         int orderFinalSalePrice = orderSalePrice + deliveryCost - usePoint;
     }
+
+	public void setOrderId(String orderId2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getOrderFinalSalePrice() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getOrderSavePoint() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

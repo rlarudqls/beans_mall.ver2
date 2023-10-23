@@ -28,7 +28,7 @@ public class OrderPageItemDTO {
         initSaleTotal();
     }
 
-    private void initSaleTotal() {
+    public void initSaleTotal() {
         this.salePrice = (int) (this.beanPrice * (1 - this.beanDiscount));
         this.totalPrice = this.salePrice * this.beanCount;
         this.point = (int) (Math.floor(this.salePrice * 0.05));
