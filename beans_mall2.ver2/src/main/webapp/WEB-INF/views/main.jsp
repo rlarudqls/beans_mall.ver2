@@ -460,37 +460,7 @@ a {
 }
 </style>
 
-					<div class="nav-btn ui-dropdown" data-disabled="hover"
-						onmouseover="showDropdown('app-install-guide')"
-						onmouseout="hideDropdown('app-install-guide')">
-						<input readonly type="text" name="" class="btn-dropdown reset"
-							value="완성품일때 보일화면" onclick="redirectToCategory()">
 
-					</div>
-
-					<script>
-						function redirectToCategory() {
-							window.location.href = "/category/Dessert";
-						}
-					</script>
-
-
-					<nav class="fr">
-						<input type="text" id="current_user_email" class="hidden"
-							name="current_user_email" value="" readonly>
-					</nav>
-
-					<script>
-						function showDropdown(menuId) {
-							var dropdownMenu = document.getElementById(menuId);
-							dropdownMenu.classList.add("show");
-						}
-
-						function hideDropdown(menuId) {
-							var dropdownMenu = document.getElementById(menuId);
-							dropdownMenu.classList.remove("show");
-						}
-					</script>
 					<style>
 .menu-dropdown {
 	display: none;
@@ -500,72 +470,359 @@ a {
 	display: block;
 }
 </style>
-
-
-
-
-
-					<script>
-						function showDropdown(menuId) {
-							var dropdownMenu = document.getElementById(menuId);
-							dropdownMenu.classList.add("show");
-						}
-
-						function hideDropdown(menuId) {
-							var dropdownMenu = document.getElementById(menuId);
-							dropdownMenu.classList.remove("show");
-						}
-					</script>
-
 					<style>
 .login_button {
 	margin-top: -15px;
 }
 </style>
 
-					<c:if test="${member == null}">
-						<!-- 로그인되지 않은 상태 -->
-						<div class="login_button">
-							<a href="/member/login">로그인 </a> <a href="/member/join">회원가입</a>
-						</div>
-					</c:if>
 
-					<c:if test="${member != null}">
-						<!-- 로그인된 상태 -->
-						<div class="login_success_area">
-							<span>회원: ${member.memberName}</span> <span>충전금액: <fmt:formatNumber
-									value="${member.money}" pattern="\#,###.##" /></span> <span>포인트:
-								<fmt:formatNumber value="${member.point}" pattern="#,###" />
-							</span> <a href="/member/logout.do">로그아웃</a>
-						</div>
-					</c:if>
+
+
+
+
+
+
+
+
+
+					<div class="nav-btn ui-dropdown" data-disabled="hover"
+						onmouseover="showDropdown('app-install-guide')"
+						onmouseout="hideDropdown('app-install-guide')">
+						<input readonly type="text" name="" class="btn-dropdown reset"
+							value="완성품일때 보일화면" onclick="redirectToCategory()">
+					</div>
+
+					<script>
+    function redirectToCategory() {
+        window.location.href = "/category/Dessert";
+    }
+
+    function showDropdown(menuId) {
+        var dropdownMenu = document.getElementById(menuId);
+        dropdownMenu.classList.add("show");
+    }
+
+    function hideDropdown(menuId) {
+        var dropdownMenu = document.getElementById(menuId);
+        dropdownMenu.classList.remove("show");
+    }
+</script>
+
+					<nav class="fr">
+						<input type="text" id="current_user_email" class="hidden"
+							name="current_user_email" value="" readonly>
+					</nav>
+
+					<c:choose>
+						<c:when test="${member == null}">
+							<!-- 로그인되지 않은 상태 -->
+							<div class="login_button">
+								<a href="/member/login">로그인</a> <a href="/member/join">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인된 상태 -->
+							<div class="login_success_area">
+								<span>회원: ${member.memberName}</span> <span>충전금액: <fmt:formatNumber
+										value="${member.money}" pattern="\#,###.##" /></span> <span>포인트:
+									<fmt:formatNumber value="${member.point}" pattern="#,###" />
+								</span> <a href="/member/logout.do">로그아웃</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+
 					</nav>
 				</div>
 			</div>
+
 			<div class="bg-wrapper" data-vue="SearchHeader">
 				<div class="inner-w top">
-					<div class="main-search">
-						<form class="naver-shopping-form"
-							action="https://search.shopping.naver.com/search" method="GET">
-							<input id="header-search" type="text" autocomplete="off"
-								name="query" value="가방" placeholder="검색어를 입력하세요"> <input
-								type="hidden" name="channel" value="user"> <label
-								class="searchLabel">
-								<button type="submit" name="btq" value="all">
-									<i class="naver-icon-search"></i>
-								</button>
-							</label>
-						</form>
-					</div>
 					<nav class="profile-links">
 						<a href="/w/me" class="btn"> <i class="icon-mypage"></i> 내 정보
-						</a> <a id="my-cart-button"
-							href="<a href="/cart/${member.memberId}">장바구니</a>" class="btn">
-							<span class="cart-counter"></span> <i class="icon-cart"></i> 장바구니
+						</a> <a id="my-cart-button" href="/cart/${member.memberId}"
+							class="btn"> <span class="cart-counter"></span> <i
+							class="icon-cart"></i> 장바구니
 						</a>
 					</nav>
 				</div>
 			</div>
+
+			<!-- 모바일용 푸터 gnb -->
+			<nav class="footer_gnb mobile-show split-5" data-disabled="">
+				<a href="/" class=""> 작품 </a> <a href="/oc" class=""
+					data-log-object="class"> 룰렛 </a> <a href="#"> 검색 </a> <a
+					href="/w/main/category" class="active"> 카테고리 </a> <a
+					href="/personal_profile" class="" data-log-object="class"> 내 정보
+				</a>
+				<div data-vue="bottom-nav-message-nudging"></div>
+			</nav>
+
+
+
+
+
+			<script>
+    var components = [];
+    var redirectUrl = new vuepack.externals.Applink()
+        .generateWebUrlByScheme('');
+    var justShow = false;
+    if (redirectUrl === '/oc')
+        justShow = true;
+    var topNavNudging = {
+        imageUrl: '',
+        location: '',
+        message: '',
+        scheme: redirectUrl,
+        justShow: justShow
+    };
+    var bottomNavNudging = {
+        imageUrl: '',
+        location: '',
+        message: '',
+        scheme: redirectUrl,
+        justShow: justShow
+    };
+    components.push({
+        selector: '[data-vue="bottom-nav-message-nudging"]',
+        component: 'BottomNavigationMessageNudging',
+        props: {
+            gnbTooltip: bottomNavNudging,
+            isEdu: false
+        }
+    });
+    var encodingWord = '';
+    var decodingWord = encodingWord ? vuepack.externals.vuepackDecoder
+        .vuepackDecode(encodingWord)
+        : '';
+    components.push({
+        selector: '[data-vue="SearchHeader"]',
+        component: 'SearchHeader',
+        props: {
+            placeholder: 'NaverShopSearch를 사용한 검색엔진 ',
+            placeholderWord: '김경빈의날',
+            searchWord: decodingWord,
+            popularWordList : [
+				{
+					"key" : "\uc2a4\uc2b9\uc758\ub0a0",
+					"docCount" : 1390000
+				},
+				{
+					"key" : "\ud0a4\ub9c1",
+					"docCount" : 950000
+				},
+				{
+					"key" : "\ub124\uc784\ud0dd",
+					"docCount" : 686000
+				},
+				{
+					"key" : "\ud3f0\ucf00\uc774\uc2a4",
+					"docCount" : 663000
+				},
+				{
+					"key" : "\uc9c0\ube44\uce20",
+					"docCount" : 613000
+				},
+				{
+					"key" : "\uadf8\ub9bd\ud1a1",
+					"docCount" : 564000
+				},
+				{
+					"key" : "\ubc18\uc9c0",
+					"docCount" : 430000
+				},
+				{
+					"key" : "\uce74\ub4dc\uc9c0\uac11",
+					"docCount" : 398000
+				},
+				{
+					"key" : "\ucf00\uc774\ud06c",
+					"docCount" : 375000
+				},
+				{
+					"key" : "\ucfe0\ud0a4",
+					"docCount" : 372000
+				},
+				{
+					"key" : "\ud314\ucc0c",
+					"docCount" : 368000
+				},
+				{
+					"key" : "\ub2f5\ub840\ud488",
+					"docCount" : 345000
+				},
+				{
+					"key" : "\uac00\ubc29",
+					"docCount" : 331000
+				},
+				{
+					"key" : "\ud30c\uc6b0\uce58",
+					"docCount" : 310000
+				},
+				{
+					"key" : "\uc57d\uacfc",
+					"docCount" : 310000
+				},
+				{
+					"key" : "\ucee4\ud50c\ub9c1",
+					"docCount" : 305000
+				},
+				{
+					"key" : "\ubaa9\uac78\uc774",
+					"docCount" : 286000
+				},
+				{
+					"key" : "\ud578\ub4dc\ud3f0\ucf00\uc774\uc2a4",
+					"docCount" : 280000
+				}, {
+					"key" : "\uc5d0\ucf54\ubc31",
+					"docCount" : 273000
+				}, {
+					"key" : "\ub9c8\uce74\ub871",
+					"docCount" : 269000
+				} ],
+		hotWordList : [
+				{
+					"key" : "\ud658\uac11",
+					"doc_count" : 14084,
+					"diff_rank" : 0
+				},
+				{
+					"key" : "\uac1c\uc131\uc8fc\uc545",
+					"doc_count" : 13541,
+					"diff_rank" : 0
+				},
+				{
+					"key" : "\ub2e4\uc774\uc5b4\ud2b8",
+					"doc_count" : 11480,
+					"diff_rank" : 2
+				},
+				{
+					"key" : "\uc5d0\uc5b4\ud31f\ucf00\uc774\uc2a4",
+					"doc_count" : 11439,
+					"diff_rank" : 0
+				},
+				{
+					"key" : "\uc0dd\uc77c",
+					"doc_count" : 10493,
+					"diff_rank" : 2
+				},
+				{
+					"key" : "\ud478\ub529",
+					"doc_count" : 9740,
+					"diff_rank" : 5
+				},
+				{
+					"key" : "\uc57d\uacfc\ucfe0\ud0a4",
+					"doc_count" : 9505,
+					"diff_rank" : 6
+				},
+				{
+					"key" : "\ucc28\ud0a4\ucf00\uc774\uc2a4",
+					"doc_count" : 9174,
+					"diff_rank" : -2
+				},
+				{
+					"key" : "\uc778\ud615",
+					"doc_count" : 8901,
+					"diff_rank" : 99
+				},
+				{
+					"key" : "\ud06c\ub85c\uc2a4\ubc31",
+					"doc_count" : 8719,
+					"diff_rank" : 0
+				},
+				{
+					"key" : "\ucee4\ud50c",
+					"doc_count" : 8651,
+					"diff_rank" : 6
+				},
+				{
+					"key" : "\ud53c\uc5b4\uc2f1",
+					"doc_count" : 8602,
+					"diff_rank" : -4
+				},
+				{
+					"key" : "\ud658\uac11 \ud604\uc218\ub9c9",
+					"doc_count" : 8028,
+					"diff_rank" : 3
+				},
+				{
+					"key" : "\uc9d1\ub4e4\uc774",
+					"doc_count" : 8012,
+					"diff_rank" : 99
+				},
+				{
+					"key" : "\ucc28\ub7c9\uc6a9\ubc29\ud5a5\uc81c",
+					"doc_count" : 7900,
+					"diff_rank" : -6
+				},
+				{
+					"key" : "\ucea0\ud551",
+					"doc_count" : 7814,
+					"diff_rank" : -1
+				},
+				{
+					"key" : "\ub514\uc800\ud2b8",
+					"doc_count" : 7789,
+					"diff_rank" : -5
+				},
+				{
+					"key" : "\uac1c\uc5c5\uc120\ubb3c",
+					"doc_count" : 7782,
+					"diff_rank" : 99
+				},
+				{
+					"key" : "\uce90\ub9ac\uc5b4\ub124\uc784\ud0dd",
+					"doc_count" : 7331,
+					"diff_rank" : 1
+				},
+				{
+					"key" : "\ub9e5\uc138\uc774\ud504 \uadf8\ub9bd\ud1a1",
+					"doc_count" : 7303,
+					"diff_rank" : 99
+				} ],
+		isEdu : false,
+		isClassSearch : false,
+		topNavNudging : topNavNudging
+	}
+});
+    vuepack.create(components);
+
+    // 검색 기능 추가
+    function searchNaverShopping(query) {
+        // 네이버 쇼핑 검색 페이지로 이동
+        var searchUrl = "https://search.shopping.naver.com/search/all?query=" + encodeURIComponent(query);
+        window.location.href = searchUrl;
+    }
+
+    $(function () {
+        // Enter 키를 누를 때 검색 수행
+        $('#header-search').on('keydown', function (event) {
+            if (event.keyCode === 13) {
+                var keyword = $(this).val();
+                searchNaverShopping(keyword);
+                event.preventDefault();
+            }
+        });
+
+        // 검색 버튼 클릭 시 검색 수행
+        $('form.naver-shopping-form button[type="submit"]').on('click', function () {
+            var keyword = $('#header-search').val();
+            searchNaverShopping(keyword);
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
 			<div class="full-w gnb-scroll " data-ui="gnb-scroll"
 				data-state="static">
 
@@ -670,285 +927,7 @@ a {
 				</div>
 			</div>
 
-			<!-- 모바일용 푸터 gnb -->
-			<nav class="footer_gnb mobile-show split-5" data-disabled="">
 
-				<a href="/" class=""> 작품 </a> <a href="/oc" class=""
-					data-log-object="class"> 룰렛 </a> <a href="#"> 검색 </a> <a
-					href="/w/main/category" class="active"> 카테고리 </a> <a
-					href="/personal_profile" class="" data-log-object="class"> 내 정보
-				</a>
-				<div data-vue="bottom-nav-message-nudging"></div>
-			</nav>
-			<script>
-				var components = [];
-				var redirectUrl = new vuepack.externals.Applink()
-						.generateWebUrlByScheme('');
-				var justShow = false;
-				if (redirectUrl === '/oc')
-					justShow = true;
-				var topNavNudging = {
-					imageUrl : '',
-					location : '',
-					message : '',
-					scheme : redirectUrl,
-					justShow : justShow
-				};
-				var bottomNavNudging = {
-					imageUrl : '',
-					location : '',
-					message : '',
-					scheme : redirectUrl,
-					justShow : justShow
-				};
-				components.push({
-					selector : '[data-vue="bottom-nav-message-nudging"]',
-					component : 'BottomNavigationMessageNudging',
-					props : {
-						gnbTooltip : bottomNavNudging,
-						isEdu : false
-					}
-				});
-				var encodingWord = '';
-				var decodingWord = encodingWord ? vuepack.externals.vuepackDecoder
-						.vuepackDecode(encodingWord)
-						: '';
-				components
-						.push({
-							selector : '[data-vue="SearchHeader"]',
-							component : 'SearchHeader',
-							props : {
-								placeholder : '김경빈의 생일날을 검색해보세요! ',
-								placeholderWord : '김경빈의날',
-								searchWord : decodingWord,
-								popularWordList : [
-										{
-											"key" : "\uc2a4\uc2b9\uc758\ub0a0",
-											"docCount" : 1390000
-										},
-										{
-											"key" : "\ud0a4\ub9c1",
-											"docCount" : 950000
-										},
-										{
-											"key" : "\ub124\uc784\ud0dd",
-											"docCount" : 686000
-										},
-										{
-											"key" : "\ud3f0\ucf00\uc774\uc2a4",
-											"docCount" : 663000
-										},
-										{
-											"key" : "\uc9c0\ube44\uce20",
-											"docCount" : 613000
-										},
-										{
-											"key" : "\uadf8\ub9bd\ud1a1",
-											"docCount" : 564000
-										},
-										{
-											"key" : "\ubc18\uc9c0",
-											"docCount" : 430000
-										},
-										{
-											"key" : "\uce74\ub4dc\uc9c0\uac11",
-											"docCount" : 398000
-										},
-										{
-											"key" : "\ucf00\uc774\ud06c",
-											"docCount" : 375000
-										},
-										{
-											"key" : "\ucfe0\ud0a4",
-											"docCount" : 372000
-										},
-										{
-											"key" : "\ud314\ucc0c",
-											"docCount" : 368000
-										},
-										{
-											"key" : "\ub2f5\ub840\ud488",
-											"docCount" : 345000
-										},
-										{
-											"key" : "\uac00\ubc29",
-											"docCount" : 331000
-										},
-										{
-											"key" : "\ud30c\uc6b0\uce58",
-											"docCount" : 310000
-										},
-										{
-											"key" : "\uc57d\uacfc",
-											"docCount" : 310000
-										},
-										{
-											"key" : "\ucee4\ud50c\ub9c1",
-											"docCount" : 305000
-										},
-										{
-											"key" : "\ubaa9\uac78\uc774",
-											"docCount" : 286000
-										},
-										{
-											"key" : "\ud578\ub4dc\ud3f0\ucf00\uc774\uc2a4",
-											"docCount" : 280000
-										}, {
-											"key" : "\uc5d0\ucf54\ubc31",
-											"docCount" : 273000
-										}, {
-											"key" : "\ub9c8\uce74\ub871",
-											"docCount" : 269000
-										} ],
-								hotWordList : [
-										{
-											"key" : "\ud658\uac11",
-											"doc_count" : 14084,
-											"diff_rank" : 0
-										},
-										{
-											"key" : "\uac1c\uc131\uc8fc\uc545",
-											"doc_count" : 13541,
-											"diff_rank" : 0
-										},
-										{
-											"key" : "\ub2e4\uc774\uc5b4\ud2b8",
-											"doc_count" : 11480,
-											"diff_rank" : 2
-										},
-										{
-											"key" : "\uc5d0\uc5b4\ud31f\ucf00\uc774\uc2a4",
-											"doc_count" : 11439,
-											"diff_rank" : 0
-										},
-										{
-											"key" : "\uc0dd\uc77c",
-											"doc_count" : 10493,
-											"diff_rank" : 2
-										},
-										{
-											"key" : "\ud478\ub529",
-											"doc_count" : 9740,
-											"diff_rank" : 5
-										},
-										{
-											"key" : "\uc57d\uacfc\ucfe0\ud0a4",
-											"doc_count" : 9505,
-											"diff_rank" : 6
-										},
-										{
-											"key" : "\ucc28\ud0a4\ucf00\uc774\uc2a4",
-											"doc_count" : 9174,
-											"diff_rank" : -2
-										},
-										{
-											"key" : "\uc778\ud615",
-											"doc_count" : 8901,
-											"diff_rank" : 99
-										},
-										{
-											"key" : "\ud06c\ub85c\uc2a4\ubc31",
-											"doc_count" : 8719,
-											"diff_rank" : 0
-										},
-										{
-											"key" : "\ucee4\ud50c",
-											"doc_count" : 8651,
-											"diff_rank" : 6
-										},
-										{
-											"key" : "\ud53c\uc5b4\uc2f1",
-											"doc_count" : 8602,
-											"diff_rank" : -4
-										},
-										{
-											"key" : "\ud658\uac11 \ud604\uc218\ub9c9",
-											"doc_count" : 8028,
-											"diff_rank" : 3
-										},
-										{
-											"key" : "\uc9d1\ub4e4\uc774",
-											"doc_count" : 8012,
-											"diff_rank" : 99
-										},
-										{
-											"key" : "\ucc28\ub7c9\uc6a9\ubc29\ud5a5\uc81c",
-											"doc_count" : 7900,
-											"diff_rank" : -6
-										},
-										{
-											"key" : "\ucea0\ud551",
-											"doc_count" : 7814,
-											"diff_rank" : -1
-										},
-										{
-											"key" : "\ub514\uc800\ud2b8",
-											"doc_count" : 7789,
-											"diff_rank" : -5
-										},
-										{
-											"key" : "\uac1c\uc5c5\uc120\ubb3c",
-											"doc_count" : 7782,
-											"diff_rank" : 99
-										},
-										{
-											"key" : "\uce90\ub9ac\uc5b4\ub124\uc784\ud0dd",
-											"doc_count" : 7331,
-											"diff_rank" : 1
-										},
-										{
-											"key" : "\ub9e5\uc138\uc774\ud504 \uadf8\ub9bd\ud1a1",
-											"doc_count" : 7303,
-											"diff_rank" : 99
-										} ],
-								isEdu : false,
-								isClassSearch : false,
-								topNavNudging : topNavNudging
-							}
-						});
-				vuepack.create(components);
-
-				$(function() {
-
-					$('header#header [data-log-object]').on(
-							'click',
-							function(event) {
-								var logObject = $(event.currentTarget).data(
-										'logObject');
-								Logger.sendClick({
-									section : Section.Gnb,
-									object : logObject
-								}, true)
-							});
-					// 알림 모두 보기 로깅
-
-					$('header#header [data-log-noti-object]').on(
-							'click',
-							function(event) {
-								var logObject = $(event.currentTarget).data(
-										'logNotiObject');
-								Logger.sendClick({
-									logLabel : LogLabel.Inbox,
-									section : Section.Gnb,
-									object : logObject
-								}, true)
-							});
-
-					$('header#header [data-log-label="product_category"]').on(
-							'click',
-							function(event) {
-								var logObject = $(event.currentTarget).data(
-										'logObject');
-								Logger.sendClick({
-									logLabel : LogLabel.ProductCategory,
-									section : Section.Gnb,
-									object : logObject,
-									objectType : ObjectType.ProductCategoryUuid
-								}, true);
-							})
-
-				});
-			</script>
 
 		</header>
 
@@ -960,15 +939,20 @@ a {
 
 					<div class="search_area">
 						<div class="search_wrap">
-							<form id="searchForm" action="/search" method="get">
-								<div class="search_input">
-									<select name="type">
-										<option value="T">상품명</option>
-										<option value="A">판매자</option>
-									</select> <input type="text" name="keyword">
-									<button class='btn search_btn'>검 색</button>
-								</div>
-							</form>
+							 <form id="searchForm" action="/search" method="get">
+                        <div class="search_input">
+                            <select name="type">
+                                <option value="T">상품명</option>
+                                <option value="A">판매자</option>
+                            </select>
+                            <input type="text" name="keyword" placeholder="빈스몰 내 판매상품 검색">
+                            <!-- 버튼 요소 -->
+                            <button class='btn search_btn' style="text-align: left;">
+                                모든 상품보기
+                            </button>
+                            
+                        </div>
+                    </form>
 						</div>
 					</div>
 
@@ -1149,6 +1133,17 @@ a {
 	</script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        // 페이지 로드 시 실행할 함수
+        window.addEventListener('load', function () {
+            // 메시지를 표시할 함수
+            function showMessage() {
+                alert("Test ID : kkb2023 / Test PW : 1234");
+            }
 
+            // showMessage 함수를 0.5초 뒤에 실행 (페이지 로드 후 0.5초 후에 실행됨)
+            setTimeout(showMessage, 500); 
+        });
+    </script>
 </body>
 </html>
